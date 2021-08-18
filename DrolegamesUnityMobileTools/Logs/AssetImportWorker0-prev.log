@@ -1,0 +1,651 @@
+Using pre-set license
+Built from '2020.3/release' branch; Version is '2020.3.15f2 (6cf78cb77498) revision 7141260'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19041.1165; Version 2004; 64bit' Language: 'en' Physical Memory: 32160 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.15f2\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Develop/drolegames/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+61242
+Successfully changed project path to: C:/Develop/drolegames/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools
+C:/Develop/drolegames/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 39.19 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.15f2 (6cf78cb77498)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Develop/drolegames/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 3080 Laptop GPU (ID=0x249c)
+    Vendor:   
+    VRAM:     8042 MB
+    Driver:   30.0.14.7168
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56680
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001665 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 29.21 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.164 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2164ms)
+		BeginReloadAssembly (43ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (307ms)
+			LoadAssemblies (42ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (98ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (24ms)
+			SetupLoadedEditorAssemblies (129ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (4ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (29ms)
+				BeforeProcessingInitializeOnLoad (11ms)
+				ProcessInitializeOnLoadAttributes (64ms)
+				ProcessInitializeOnLoadMethodAttributes (20ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.004423 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.60 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.843 seconds
+Domain Reload Profiling:
+	ReloadAssembly (844ms)
+		BeginReloadAssembly (104ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (16ms)
+		EndReloadAssembly (694ms)
+			LoadAssemblies (71ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (179ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (34ms)
+			SetupLoadedEditorAssemblies (348ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (77ms)
+				ProcessInitializeOnLoadAttributes (256ms)
+				ProcessInitializeOnLoadMethodAttributes (3ms)
+				AfterProcessingInitializeOnLoad (5ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.49 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1665 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 73.6 MB.
+System memory in use after: 73.6 MB.
+
+Unloading 48 unused Assets to reduce memory usage. Loaded Objects now: 2078.
+Total: 2.009900 ms (FindLiveObjects: 0.140500 ms CreateObjectMapping: 0.040000 ms MarkObjects: 1.753700 ms  DeleteObjects: 0.075100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/DrolegamesTools/drolegames.commonunitytools.asmdef
+  artifactKey: Guid(504ba752c43499e46b142dccda32a3ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/drolegames.commonunitytools.asmdef using Guid(504ba752c43499e46b142dccda32a3ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '035d05e21d0d74b683fbe2138bda79a7') in 0.014410 seconds 
+  Import took 0.016546 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.099275 seconds.
+  path: Assets/DrolegamesTools/Achievements
+  artifactKey: Guid(59ac69e89af53d042b7aecc8602a1eb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Achievements using Guid(59ac69e89af53d042b7aecc8602a1eb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b860db4a5d3333653e74e23466fe510') in 0.005240 seconds 
+  Import took 0.007558 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003057 seconds.
+  path: Assets/DrolegamesTools/Achievements
+  artifactKey: Guid(59ac69e89af53d042b7aecc8602a1eb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Achievements using Guid(59ac69e89af53d042b7aecc8602a1eb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b860db4a5d3333653e74e23466fe510') in 0.001646 seconds 
+  Import took 0.003947 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.819636 seconds.
+  path: Assets/DrolegamesTools/Achievements/AchievementsManager.cs
+  artifactKey: Guid(a64880947b718544492a51ce15977f42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Achievements/AchievementsManager.cs using Guid(a64880947b718544492a51ce15977f42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ca0354be5e74924b2a7a779b0fa5c6d') in 0.013406 seconds 
+  Import took 0.015640 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 88.252175 seconds.
+  path: Assets/DrolegamesTools/SocialService/Android
+  artifactKey: Guid(1dde80f9e7350cc43a7ab6aacadc13d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/Android using Guid(1dde80f9e7350cc43a7ab6aacadc13d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95c63292c478e7a6841efad7752a26d9') in 0.005514 seconds 
+  Import took 0.007935 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.228123 seconds.
+  path: Assets/DrolegamesTools/SocialService/Android/Drolegames.Social.Android.asmdef
+  artifactKey: Guid(282532516c271214db7bf7750ac50786) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/Android/Drolegames.Social.Android.asmdef using Guid(282532516c271214db7bf7750ac50786) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '245155888be9e4b5dbb0b6244eed85b2') in 0.005274 seconds 
+  Import took 0.007537 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.006101 seconds.
+  path: Assets/DrolegamesTools/SocialService/Android/Drolegames.Social.Android.asmdef
+  artifactKey: Guid(282532516c271214db7bf7750ac50786) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/Android/Drolegames.Social.Android.asmdef using Guid(282532516c271214db7bf7750ac50786) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '245155888be9e4b5dbb0b6244eed85b2') in 0.001594 seconds 
+  Import took 0.003779 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.532045 seconds.
+  path: Assets/DrolegamesTools/SocialService/Android/GooglePlaySocial.cs
+  artifactKey: Guid(9d50691b1157d1c44ade824bd9c1c843) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/Android/GooglePlaySocial.cs using Guid(9d50691b1157d1c44ade824bd9c1c843) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72132f697f57e0a9ff59ddb431f9c9bd') in 0.005090 seconds 
+  Import took 0.007375 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000283 seconds.
+  path: Assets/DrolegamesTools/SocialService/Android/GooglePlaySocial.cs
+  artifactKey: Guid(9d50691b1157d1c44ade824bd9c1c843) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/Android/GooglePlaySocial.cs using Guid(9d50691b1157d1c44ade824bd9c1c843) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72132f697f57e0a9ff59ddb431f9c9bd') in 0.001587 seconds 
+  Import took 0.003549 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004063 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.58 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.799 seconds
+Domain Reload Profiling:
+	ReloadAssembly (800ms)
+		BeginReloadAssembly (86ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (28ms)
+		EndReloadAssembly (669ms)
+			LoadAssemblies (66ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (183ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (31ms)
+			SetupLoadedEditorAssemblies (322ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (71ms)
+				ProcessInitializeOnLoadAttributes (237ms)
+				ProcessInitializeOnLoadMethodAttributes (3ms)
+				AfterProcessingInitializeOnLoad (4ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.54 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1660 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 73.5 MB.
+System memory in use after: 73.6 MB.
+
+Unloading 43 unused Assets to reduce memory usage. Loaded Objects now: 2081.
+Total: 2.368800 ms (FindLiveObjects: 0.147100 ms CreateObjectMapping: 0.054000 ms MarkObjects: 2.117200 ms  DeleteObjects: 0.049800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004053 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.815 seconds
+Domain Reload Profiling:
+	ReloadAssembly (816ms)
+		BeginReloadAssembly (85ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (27ms)
+		EndReloadAssembly (685ms)
+			LoadAssemblies (67ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (190ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (34ms)
+			SetupLoadedEditorAssemblies (327ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (73ms)
+				ProcessInitializeOnLoadAttributes (239ms)
+				ProcessInitializeOnLoadMethodAttributes (3ms)
+				AfterProcessingInitializeOnLoad (5ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.55 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1660 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 73.6 MB.
+System memory in use after: 73.7 MB.
+
+Unloading 43 unused Assets to reduce memory usage. Loaded Objects now: 2084.
+Total: 2.151300 ms (FindLiveObjects: 0.177500 ms CreateObjectMapping: 0.044900 ms MarkObjects: 1.875000 ms  DeleteObjects: 0.052800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 15.340504 seconds.
+  path: Assets/DrolegamesTools/SocialService/iOS/IOSSocial.cs
+  artifactKey: Guid(98e839c65d5272b45a74444a5161946d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/iOS/IOSSocial.cs using Guid(98e839c65d5272b45a74444a5161946d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b038c17e549d05a5437822fc5f1c3c7') in 0.008216 seconds 
+  Import took 0.010391 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003957 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.808 seconds
+Domain Reload Profiling:
+	ReloadAssembly (808ms)
+		BeginReloadAssembly (83ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (27ms)
+		EndReloadAssembly (680ms)
+			LoadAssemblies (66ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (183ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (37ms)
+			SetupLoadedEditorAssemblies (326ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (70ms)
+				ProcessInitializeOnLoadAttributes (241ms)
+				ProcessInitializeOnLoadMethodAttributes (3ms)
+				AfterProcessingInitializeOnLoad (5ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.52 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1660 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 73.6 MB.
+System memory in use after: 73.7 MB.
+
+Unloading 43 unused Assets to reduce memory usage. Loaded Objects now: 2087.
+Total: 2.263200 ms (FindLiveObjects: 0.148300 ms CreateObjectMapping: 0.059300 ms MarkObjects: 2.001100 ms  DeleteObjects: 0.053500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004348 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.809 seconds
+Domain Reload Profiling:
+	ReloadAssembly (809ms)
+		BeginReloadAssembly (91ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (26ms)
+		EndReloadAssembly (670ms)
+			LoadAssemblies (68ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (185ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (32ms)
+			SetupLoadedEditorAssemblies (323ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (71ms)
+				ProcessInitializeOnLoadAttributes (237ms)
+				ProcessInitializeOnLoadMethodAttributes (3ms)
+				AfterProcessingInitializeOnLoad (4ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.53 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1660 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 73.6 MB.
+System memory in use after: 73.7 MB.
+
+Unloading 43 unused Assets to reduce memory usage. Loaded Objects now: 2090.
+Total: 2.209300 ms (FindLiveObjects: 0.142000 ms CreateObjectMapping: 0.052200 ms MarkObjects: 1.964000 ms  DeleteObjects: 0.050200 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 14.764995 seconds.
+  path: Assets/DrolegamesTools/SocialService/SocialManager.cs
+  artifactKey: Guid(0a19a9a7be5b2704ba891beae91d8102) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/SocialManager.cs using Guid(0a19a9a7be5b2704ba891beae91d8102) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21440f07fc2738c367186eea3f8a73a4') in 0.008084 seconds 
+  Import took 0.010392 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.024302 seconds.
+  path: Assets/DrolegamesTools/SocialService/SocialManager.cs
+  artifactKey: Guid(0a19a9a7be5b2704ba891beae91d8102) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/SocialManager.cs using Guid(0a19a9a7be5b2704ba891beae91d8102) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21440f07fc2738c367186eea3f8a73a4') in 0.001881 seconds 
+  Import took 0.004160 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.340271 seconds.
+  path: Assets/DrolegamesTools/SocialService/SocialManager.prefab
+  artifactKey: Guid(ca289e4f996947f4b8cf296baf39d3a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/SocialManager.prefab using Guid(ca289e4f996947f4b8cf296baf39d3a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1d3d51a8295c6dd036ac6bb01cf07d0') in 0.020129 seconds 
+  Import took 0.022390 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.008682 seconds.
+  path: Assets/DrolegamesTools/SocialService/SocialManager.prefab
+  artifactKey: Guid(ca289e4f996947f4b8cf296baf39d3a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/SocialManager.prefab using Guid(ca289e4f996947f4b8cf296baf39d3a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1d3d51a8295c6dd036ac6bb01cf07d0') in 0.003597 seconds 
+  Import took 0.005801 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.433599 seconds.
+  path: Assets/DrolegamesTools/Inputs/PointManager.cs
+  artifactKey: Guid(bce51a714e207524d9a400aeb5e48c2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Inputs/PointManager.cs using Guid(bce51a714e207524d9a400aeb5e48c2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7af5058536434ed3a05e5aa15eb12a0') in 0.005884 seconds 
+  Import took 0.008162 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000182 seconds.
+  path: Assets/DrolegamesTools/Inputs/PointManager.cs
+  artifactKey: Guid(bce51a714e207524d9a400aeb5e48c2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Inputs/PointManager.cs using Guid(bce51a714e207524d9a400aeb5e48c2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7af5058536434ed3a05e5aa15eb12a0') in 0.001718 seconds 
+  Import took 0.003680 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.441605 seconds.
+  path: Assets/DrolegamesTools/Inputs/Drolegames.Inputs.asmdef
+  artifactKey: Guid(0d222706a39a12e449b7884270b03c35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Inputs/Drolegames.Inputs.asmdef using Guid(0d222706a39a12e449b7884270b03c35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be3a3c9368681331c4e2b06cffed934e') in 0.005505 seconds 
+  Import took 0.007793 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.008847 seconds.
+  path: Assets/DrolegamesTools/Inputs/Drolegames.Inputs.asmdef
+  artifactKey: Guid(0d222706a39a12e449b7884270b03c35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Inputs/Drolegames.Inputs.asmdef using Guid(0d222706a39a12e449b7884270b03c35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be3a3c9368681331c4e2b06cffed934e') in 0.001951 seconds 
+  Import took 0.004236 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.712480 seconds.
+  path: Assets/DrolegamesTools/Advertisements/AdvertisementsManager.cs
+  artifactKey: Guid(5537230a8fa6254469d38e7d035c4c12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Advertisements/AdvertisementsManager.cs using Guid(5537230a8fa6254469d38e7d035c4c12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8cb3fa4462ec378dadabc16ac728786f') in 0.005360 seconds 
+  Import took 0.007664 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.919405 seconds.
+  path: Assets/DrolegamesTools/Advertisements/AdvertisementsManager.prefab
+  artifactKey: Guid(90a91fe6ac2db3640b7f54e801597a8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Advertisements/AdvertisementsManager.prefab using Guid(90a91fe6ac2db3640b7f54e801597a8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a8f90b4e30bbc9109ae647193bd6666') in 0.003967 seconds 
+  Import took 0.006270 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 16.054961 seconds.
+  path: Assets/DrolegamesTools/Achievements/AchievementsManager.prefab
+  artifactKey: Guid(66bab10395c7bec438dbd91bf6dc3b14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Achievements/AchievementsManager.prefab using Guid(66bab10395c7bec438dbd91bf6dc3b14) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd9e0f9858089f9eb62db7a477e16d83') in 0.004285 seconds 
+  Import took 0.006551 seconds .
+
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 7.67 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 41 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 41.1 MB.
+System memory in use after: 41.1 MB.
+
+Unloading 41 unused Assets to reduce memory usage. Loaded Objects now: 2090.
+Total: 2.418400 ms (FindLiveObjects: 0.147900 ms CreateObjectMapping: 0.031600 ms MarkObjects: 2.193300 ms  DeleteObjects: 0.044900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 7.98 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 41 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 41.1 MB.
+System memory in use after: 41.1 MB.
+
+Unloading 41 unused Assets to reduce memory usage. Loaded Objects now: 2090.
+Total: 2.227900 ms (FindLiveObjects: 0.179700 ms CreateObjectMapping: 0.033800 ms MarkObjects: 1.962200 ms  DeleteObjects: 0.051600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 690.745677 seconds.
+  path: Assets/Samples/Mobile Notifications
+  artifactKey: Guid(10eff64c8ce43e94dadac2f13a3f411f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/Mobile Notifications using Guid(10eff64c8ce43e94dadac2f13a3f411f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a2e25c8f4451a5bda930b1f7df601b0') in 0.005273 seconds 
+  Import took 0.007901 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.803969 seconds.
+  path: Assets/Samples/Mobile Notifications/1.4.2
+  artifactKey: Guid(7b3e5f66c235ced4abeeebe9cb075f41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/Mobile Notifications/1.4.2 using Guid(7b3e5f66c235ced4abeeebe9cb075f41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7dfd344e9ed6a1dafaf261735f83f408') in 0.005365 seconds 
+  Import took 0.007607 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.665430 seconds.
+  path: Assets/Samples/Mobile Notifications/1.4.2/Notification Samples
+  artifactKey: Guid(497b2a0129ef31d4e9f183e43275768c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/Mobile Notifications/1.4.2/Notification Samples using Guid(497b2a0129ef31d4e9f183e43275768c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb43d42ae6a003caa95ad9c43d278bb8') in 0.005386 seconds 
+  Import took 0.007702 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.644704 seconds.
+  path: Assets/Samples/Mobile Notifications/1.4.2/Notification Samples/Demo
+  artifactKey: Guid(bb3a0c5453185624f878091b74e1fa21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/Mobile Notifications/1.4.2/Notification Samples/Demo using Guid(bb3a0c5453185624f878091b74e1fa21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6eb431812f6b049a360433fd745af2f6') in 0.005179 seconds 
+  Import took 0.007412 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.648454 seconds.
+  path: Assets/Samples/Mobile Notifications/1.4.2/Notification Samples/Scripts
+  artifactKey: Guid(d5f2241b5c2fb504a8d134f06d6779fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/Mobile Notifications/1.4.2/Notification Samples/Scripts using Guid(d5f2241b5c2fb504a8d134f06d6779fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6b63532c6ef47681eab29c34233733d') in 0.005823 seconds 
+  Import took 0.008092 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.309398 seconds.
+  path: Assets/Samples/Mobile Notifications/1.4.2/Notification Samples/Scripts/Android
+  artifactKey: Guid(7e1e179c96c147169bfd5d5d8db03342) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/Mobile Notifications/1.4.2/Notification Samples/Scripts/Android using Guid(7e1e179c96c147169bfd5d5d8db03342) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '77cbeb9f990b7e2b331295440bb11b5f') in 0.005803 seconds 
+  Import took 0.008102 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 224.002736 seconds.
+  path: Assets/Samples/Mobile Notifications/1.4.2/Notification Samples/Scripts/Android/AndroidGameNotification.cs
+  artifactKey: Guid(3392c010e7054335a1e72b6376a2a86a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Samples/Mobile Notifications/1.4.2/Notification Samples/Scripts/Android/AndroidGameNotification.cs using Guid(3392c010e7054335a1e72b6376a2a86a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31e2e701c29b8508e75b782ea8e71789') in 0.006213 seconds 
+  Import took 0.008643 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 57.766087 seconds.
+  path: Assets/DrolegamesTools/Notifications/Drolegames.Notifications.asmdef
+  artifactKey: Guid(b2562d211038fd742907f6dc90958f59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Notifications/Drolegames.Notifications.asmdef using Guid(b2562d211038fd742907f6dc90958f59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf66656a538ca46bb774ca574f36cfb4') in 0.005814 seconds 
+  Import took 0.008110 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 27.162001 seconds.
+  path: Assets/DrolegamesTools/Notifications/Drolegames.Notifications.asmdef
+  artifactKey: Guid(b2562d211038fd742907f6dc90958f59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/Notifications/Drolegames.Notifications.asmdef using Guid(b2562d211038fd742907f6dc90958f59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a0d0d534e8e7ae88f95ba11a7a93369') in 0.001930 seconds 
+  Import took 0.004380 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

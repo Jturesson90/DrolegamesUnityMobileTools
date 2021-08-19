@@ -1,11 +1,9 @@
-﻿using Drolegames.SocialService;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace Drolegames.Achievements
+﻿namespace Drolegames.Achievements
 {
+    using UnityEngine;
+    using UnityEngine.UI;
+    using Drolegames.SocialService;
+
     public class AchievementButton : MonoBehaviour
     {
         [Header("Scene references")]
@@ -34,12 +32,12 @@ namespace Drolegames.Achievements
         }
         private void OnEnable()
         {
-            SocialManager.LoggedInChanged += SocialManager_LoggedInChanged;
+            SocialManager.Current.LoggedInChanged += SocialManager_LoggedInChanged;
             button.onClick.AddListener(OnButtonClicked);
         }
         private void OnDisable()
         {
-            SocialManager.LoggedInChanged -= SocialManager_LoggedInChanged;
+            SocialManager.Current.LoggedInChanged -= SocialManager_LoggedInChanged;
             button.onClick.RemoveListener(OnButtonClicked);
         }
         private void OnButtonClicked()

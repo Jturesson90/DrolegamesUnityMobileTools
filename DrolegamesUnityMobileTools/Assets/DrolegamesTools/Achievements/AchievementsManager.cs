@@ -119,12 +119,12 @@ namespace Drolegames.Achievements
         }
         private void OnEnable()
         {
-            SocialManager.LoggedInChanged += SocialManager_LoggedInChanged;
+            SocialManager.Current.LoggedInChanged += SocialManager_LoggedInChanged;
             LoadFromDisk();
         }
         private void OnDisable()
         {
-            SocialManager.LoggedInChanged -= SocialManager_LoggedInChanged;
+            SocialManager.Current.LoggedInChanged -= SocialManager_LoggedInChanged;
             SaveToDisk();
         }
         private void LoadAchievements()

@@ -9,10 +9,10 @@
     public class SocialManager : Singleton<SocialManager>
     {
         private ISocialService socialService;
-        public static event EventHandler<SocialManagerArgs> LoggedInChanged;
-        public static event EventHandler<bool> LoggingInPendingChanged;
-        public static event EventHandler<bool> OnUploadChanged;
-        public static event EventHandler<OnUploadCompleteArgs> OnUploadComplete;
+        public event EventHandler<SocialManagerArgs> LoggedInChanged;
+        public event EventHandler<bool> LoggingInPendingChanged;
+        public event EventHandler<bool> OnUploadChanged;
+        public event EventHandler<OnUploadCompleteArgs> OnUploadComplete;
 
         private bool _loggingInPending = false;
         public bool LoggingInPending

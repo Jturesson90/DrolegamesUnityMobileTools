@@ -28,5 +28,6 @@ namespace Drolegames.SocialService
         string StoreName { get; }
         string Greeting { get; }
         byte[] CloudData { get; }
+
     }
 }

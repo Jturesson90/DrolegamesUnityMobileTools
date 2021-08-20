@@ -14,7 +14,6 @@
         public Sprite iTunesSprite;
         public Sprite mockSprite;
 
-        private bool _delayedInit = false;
         private void Awake()
         {
             if (!image || !button)
@@ -30,29 +29,26 @@
             {
                 UpdateImage(SocialManager.Current.Platform);
             }
-            if (_delayedInit)
-            {
-                SocialManager.Current.LoggedInChanged += SocialManager_LoggedInChanged;
-            }
+            SocialManager.Current.LoggedInChanged += SocialManager_LoggedInChanged;
         }
+
         private void OnEnable()
+        {
+            button.onClick.AddListener(OnButtonClicked);
+        }
+
+        private void OnDisable()
+        {
+            button.onClick.RemoveListener(OnButtonClicked);
+        }
+        private void OnDestroy()
         {
             if (SocialManager.IsInitialized)
             {
-                SocialManager.Current.LoggedInChanged += SocialManager_LoggedInChanged;
+                SocialManager.Current.LoggedInChanged -= SocialManager_LoggedInChanged;
             }
-            else
-            {
-                _delayedInit = true;
-            }
-         
-            button.onClick.AddListener(OnButtonClicked);
         }
-        private void OnDisable()
-        {
-            SocialManager.Current.LoggedInChanged -= SocialManager_LoggedInChanged;
-            button.onClick.RemoveListener(OnButtonClicked);
-        }
+
         private void OnButtonClicked()
         {
             if (SocialManager.IsInitialized)
@@ -60,11 +56,13 @@
                 SocialManager.Current.ShowAchievementsUI();
             }
         }
+
         private void SocialManager_LoggedInChanged(object sender, SocialManagerArgs e)
         {
             button.gameObject.SetActive(e.IsLoggedIn);
             UpdateImage(e.Platform);
         }
+
         private void UpdateImage(RuntimePlatform platform)
         {
 

@@ -57,12 +57,16 @@
             currentId = id;
             return true;
         }
+        private void LoadRewardVideo()
+        {
+            Advertisement.Load(rewardVideoID, this);
 
+        }
         #region IUnityAdsInitializationListener
         public void OnInitializationComplete()
         {
             Debug.Log("Unity Ads initialization complete.");
-            Advertisement.Load(gameId, this);
+            LoadRewardVideo();
         }
         public void OnInitializationFailed(UnityAdsInitializationError error, string message)
         {
@@ -113,7 +117,7 @@
             {
                 OnRewardVideoSuccess?.Invoke(this, new AdsFinishedEventArgs((AdvertisementResult)showCompletionState, currentId));
             }
-            Advertisement.Load(gameId, this);
+            LoadRewardVideo();
         }
         #endregion
 

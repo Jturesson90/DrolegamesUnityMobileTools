@@ -28,23 +28,27 @@ namespace Drolegames.SocialService
         private PlayGamesPlatform PlayGamesActive => (PlayGamesPlatform)Social.Active;
 
         public bool CloudSaveEnabled { get; private set; }
-
+        private readonly bool debugMode = false;
         public GooglePlaySocial(SocialAndroidSettingsSO settings)
         {
             CloudSaveEnabled = settings.cloudSaveEnabled;
             greeting = settings.greeting;
             cloudFileName = settings.cloudFileName;
             StoreName = settings.storeName;
+            debugMode = settings.debugMode;
         }
 
         public void Initialize()
         {
-            PlayGamesClientConfiguration config = new PlayGamesClientConfiguration
-                .Builder()
-                .EnableSavedGames()
-                .Build();
+            var config = new PlayGamesClientConfiguration
+                .Builder();
+            if (CloudSaveEnabled)
+            {
+                config = config.EnableSavedGames();
+            }
 
-            PlayGamesPlatform.InitializeInstance(config);
+            PlayGamesPlatform.InitializeInstance(config.Build());
+            PlayGamesPlatform.DebugLogEnabled = debugMode;
             PlayGamesPlatform.Activate();
         }
         public void LoadFromCloud(Action<bool> callback)
@@ -72,15 +76,15 @@ namespace Drolegames.SocialService
                 callback?.Invoke(false);
                 return;
             }
-            Social.localUser.Authenticate((bool success) =>
+            PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, success =>
             {
-                callback?.Invoke(success);
+                callback?.Invoke(success == SignInStatus.Success);
             });
         }
 
         public void Logout(Action<bool> callback)
         {
-            ((PlayGamesPlatform)Social.Active).SignOut();
+            PlayGamesPlatform.Instance.SignOut();
             callback?.Invoke(true);
         }
 

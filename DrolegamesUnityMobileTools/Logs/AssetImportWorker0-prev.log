@@ -15,11 +15,11 @@ C:/Develop/drolegames/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools/Drol
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-52947
+62797
 Successfully changed project path to: C:/Develop/drolegames/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools
 C:/Develop/drolegames/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools/DrolegamesUnityMobileTools
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 43.04 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 57.97 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.15f2 (6cf78cb77498)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/Resources/UnitySubsystems
@@ -35,47 +35,47 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56508
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56524
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.15f2/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002186 seconds.
+Registered in 0.002265 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 40.91 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 44.25 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.074 seconds
+- Completed reload, in  2.297 seconds
 Domain Reload Profiling:
-	ReloadAssembly (2075ms)
-		BeginReloadAssembly (45ms)
+	ReloadAssembly (2297ms)
+		BeginReloadAssembly (59ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (411ms)
-			LoadAssemblies (44ms)
+		EndReloadAssembly (462ms)
+			LoadAssemblies (57ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (127ms)
+			SetupTypeCache (147ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (35ms)
-			SetupLoadedEditorAssemblies (172ms)
+			RebuildScriptCaches (36ms)
+			SetupLoadedEditorAssemblies (195ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (5ms)
+				InitializePlatformSupportModulesInManaged (6ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (41ms)
-				BeforeProcessingInitializeOnLoad (15ms)
-				ProcessInitializeOnLoadAttributes (84ms)
-				ProcessInitializeOnLoadMethodAttributes (27ms)
+				RefreshPlugins (44ms)
+				BeforeProcessingInitializeOnLoad (16ms)
+				ProcessInitializeOnLoadAttributes (97ms)
+				ProcessInitializeOnLoadMethodAttributes (32ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.005655 seconds.
+Registered in 0.006376 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
@@ -104,45 +104,45 @@ UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
 (Filename: Assets/GooglePlayGames/Editor/GPGSUpgrader.cs Line: 105)
 
 Mono: successfully reloaded assembly
-- Completed reload, in  1.151 seconds
+- Completed reload, in  1.264 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1152ms)
-		BeginReloadAssembly (136ms)
+	ReloadAssembly (1265ms)
+		BeginReloadAssembly (150ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (19ms)
-		EndReloadAssembly (956ms)
-			LoadAssemblies (90ms)
+			CreateAndSetChildDomain (21ms)
+		EndReloadAssembly (1048ms)
+			LoadAssemblies (97ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (243ms)
+			SetupTypeCache (276ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (47ms)
-			SetupLoadedEditorAssemblies (489ms)
+			RebuildScriptCaches (52ms)
+			SetupLoadedEditorAssemblies (523ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (7ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (109ms)
-				ProcessInitializeOnLoadAttributes (359ms)
+				BeforeProcessingInitializeOnLoad (111ms)
+				ProcessInitializeOnLoadAttributes (392ms)
 				ProcessInitializeOnLoadMethodAttributes (5ms)
-				AfterProcessingInitializeOnLoad (8ms)
+				AfterProcessingInitializeOnLoad (6ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (7ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 0.68 ms, found 2 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+Refreshing native plugins compatible for Editor in 0.66 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1712 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 75.0 MB.
-System memory in use after: 75.1 MB.
+Unloading 1716 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 75.2 MB.
+System memory in use after: 75.2 MB.
 
-Unloading 61 unused Assets to reduce memory usage. Loaded Objects now: 2111.
-Total: 2.756400 ms (FindLiveObjects: 0.165100 ms CreateObjectMapping: 0.063100 ms MarkObjects: 2.428600 ms  DeleteObjects: 0.098700 ms)
+Unloading 61 unused Assets to reduce memory usage. Loaded Objects now: 2116.
+Total: 3.180600 ms (FindLiveObjects: 0.381700 ms CreateObjectMapping: 0.058800 ms MarkObjects: 2.635900 ms  DeleteObjects: 0.102800 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -157,9 +157,25 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  path: Assets/DrolegamesTools/Achievements/AchievementButton.cs
-  artifactKey: Guid(01102d34ad4fa6f43a0b2192a127648c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/DrolegamesTools/Achievements/AchievementButton.cs using Guid(01102d34ad4fa6f43a0b2192a127648c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2eb3d2167b9afaf1fdcdec9fea1994c5') in 0.019875 seconds 
-  Import took 0.022707 seconds .
+  path: Assets/DrolegamesTools/SocialService/ScriptableObjects/SocialAndroidSettingsSO.cs
+  artifactKey: Guid(66aa2f92fb5e72e4d89f337e9dc6aad6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/ScriptableObjects/SocialAndroidSettingsSO.cs using Guid(66aa2f92fb5e72e4d89f337e9dc6aad6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4eec71cd5d4572ad38728d12cd751f23') in 0.024841 seconds 
+  Import took 0.028282 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.392782 seconds.
+  path: Assets/DrolegamesTools/SocialService/GooglePlaySocial.cs
+  artifactKey: Guid(9d50691b1157d1c44ade824bd9c1c843) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/GooglePlaySocial.cs using Guid(9d50691b1157d1c44ade824bd9c1c843) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5783cf5c53be784ad7fbac89419b3509') in 0.006702 seconds 
+  Import took 0.009827 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.104138 seconds.
+  path: Assets/DrolegamesTools/SocialService/ISocial.cs
+  artifactKey: Guid(265f062831d4db44d8acfd4dce585676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/DrolegamesTools/SocialService/ISocial.cs using Guid(265f062831d4db44d8acfd4dce585676) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20d10619291f02953e2c42e692e9ad3b') in 0.005770 seconds 
+  Import took 0.009099 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

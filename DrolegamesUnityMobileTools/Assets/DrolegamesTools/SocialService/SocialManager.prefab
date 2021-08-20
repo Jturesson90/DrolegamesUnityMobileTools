@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a19a9a7be5b2704ba891beae91d8102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSaveData:
-    totalPlayingTime: 0
+  m_androidSettings: {fileID: 11400000, guid: c6d6c4734f73ba946b8beca6811d78ff, type: 2}
+  m_iosSettings: {fileID: 11400000, guid: 436a981c1dee97049a3b5ffce6dbf928, type: 2}
+  m_mockSettings: {fileID: 11400000, guid: e3da0e979a93272488139402aca99ecb, type: 2}

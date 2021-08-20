@@ -14,6 +14,7 @@
         public Sprite iTunesSprite;
         public Sprite mockSprite;
 
+        private bool _delayedInit = false;
         private void Awake()
         {
             if (!image || !button)
@@ -29,10 +30,22 @@
             {
                 UpdateImage(SocialManager.Current.Platform);
             }
+            if (_delayedInit)
+            {
+                SocialManager.Current.LoggedInChanged += SocialManager_LoggedInChanged;
+            }
         }
         private void OnEnable()
         {
-            SocialManager.Current.LoggedInChanged += SocialManager_LoggedInChanged;
+            if (SocialManager.IsInitialized)
+            {
+                SocialManager.Current.LoggedInChanged += SocialManager_LoggedInChanged;
+            }
+            else
+            {
+                _delayedInit = true;
+            }
+         
             button.onClick.AddListener(OnButtonClicked);
         }
         private void OnDisable()

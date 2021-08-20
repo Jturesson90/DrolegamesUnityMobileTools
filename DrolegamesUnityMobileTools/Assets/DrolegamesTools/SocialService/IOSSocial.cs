@@ -16,13 +16,20 @@
 
         public string Name => Social.Active.localUser.userName;
 
-        public string StoreName => "iCloud";
-
-        public string Greeting => $"Welcome {Name}";
+        public string StoreName { get; private set; }
+        private readonly string greeting;
+        public string Greeting => string.Format(greeting, Name);
 
         public byte[] CloudData { get; private set; }
 
-        public bool CloudSaveEnabled => false;
+        public bool CloudSaveEnabled { get; private set; }
+
+        public IOSSocial(SocialIOSSettingsSO settings)
+        {
+            CloudSaveEnabled = settings.cloudSaveEnabled;
+            greeting = settings.greeting;
+            StoreName = settings.storeName;
+        }
 
         public void Initialize()
         {
@@ -45,8 +52,6 @@
 
         public void Login(Action<bool> callback)
         {
-            Debug.LogWarning("Trying to login to IOS!");
-            Debug.LogWarning("Am I already logged in? " + IsLoggedIn);
             if (IsLoggedIn)
             {
                 callback?.Invoke(false);
@@ -54,7 +59,6 @@
             }
             Social.Active.localUser.Authenticate((bool success) =>
             {
-                Debug.LogWarning("Authenticate success:" + success);
                 callback?.Invoke(success);
             });
         }
@@ -67,6 +71,7 @@
 
         public void SaveGame(byte[] data, TimeSpan playedTime, Action<bool> callback)
         {
+            // Not implemented
             callback(false);
         }
 

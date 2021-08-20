@@ -2,10 +2,10 @@
 
 namespace Drolegames.SocialService
 {
+    using System;
     using GooglePlayGames;
     using GooglePlayGames.BasicApi;
     using GooglePlayGames.BasicApi.SavedGame;
-    using System;
     using UnityEngine;
     using UnityEngine.SocialPlatforms;
 
@@ -18,19 +18,27 @@ namespace Drolegames.SocialService
         public bool IsLoggedIn => PlayGamesActive.localUser.authenticated;
 
         public string Name => PlayGamesActive.localUser.userName;
-        public string Greeting => $"Welcome {Name}";
-        public string StoreName => "Google Play Games";
+        private readonly string greeting;
+        public string Greeting => string.Format(greeting, Name);
+        public string StoreName { get; private set; }
 
         public byte[] CloudData { get; private set; }
 
-        private const string CloudFileName = "SeaOfBombs_save1";
+        private readonly string cloudFileName;
         private PlayGamesPlatform PlayGamesActive => (PlayGamesPlatform)Social.Active;
 
-        public bool CloudSaveEnabled => true;
+        public bool CloudSaveEnabled { get; private set; }
+
+        public GooglePlaySocial(SocialAndroidSettingsSO settings)
+        {
+            CloudSaveEnabled = settings.cloudSaveEnabled;
+            greeting = settings.greeting;
+            cloudFileName = settings.cloudFileName;
+            StoreName = settings.storeName;
+        }
 
         public void Initialize()
         {
-            Debug.LogWarning("GooglePlaySocial Initialize");
             PlayGamesClientConfiguration config = new PlayGamesClientConfiguration
                 .Builder()
                 .EnableSavedGames()
@@ -41,7 +49,6 @@ namespace Drolegames.SocialService
         }
         public void LoadFromCloud(Action<bool> callback)
         {
-            Debug.LogWarning("GooglePlaySocial LoadFromCloud");
             if (loadingFromCloud || !IsLoggedIn)
             {
                 Debug.LogWarning("GooglePlaySocial loading or is not LoggedIn");
@@ -50,9 +57,8 @@ namespace Drolegames.SocialService
             }
             loadingFromCloud = true;
             loadCallback = callback;
-            Debug.LogWarning("GooglePlaySocial ShowSelectSavedGameUI begin");
 
-            PlayGamesActive.SavedGame.OpenWithAutomaticConflictResolution(CloudFileName,
+            PlayGamesActive.SavedGame.OpenWithAutomaticConflictResolution(cloudFileName,
                             DataSource.ReadCacheOrNetwork,
                             ConflictResolutionStrategy.UseLongestPlaytime,
                             SavedGameOpened);
@@ -61,8 +67,6 @@ namespace Drolegames.SocialService
 
         public void Login(Action<bool> callback)
         {
-            Debug.LogWarning("Trying to login to Google!");
-            Debug.LogWarning("Am I already logged in? " + IsLoggedIn);
             if (IsLoggedIn)
             {
                 callback?.Invoke(false);
@@ -70,7 +74,6 @@ namespace Drolegames.SocialService
             }
             Social.localUser.Authenticate((bool success) =>
             {
-                Debug.LogWarning("Authenticate success:" + success);
                 callback?.Invoke(success);
             });
         }
@@ -80,19 +83,17 @@ namespace Drolegames.SocialService
             ((PlayGamesPlatform)Social.Active).SignOut();
             callback?.Invoke(true);
         }
-        Texture2D screenImage;
+
         public void SaveGame(byte[] data, TimeSpan playedTime, Action<bool> callback)
         {
-            Debug.LogWarning("GooglePlaySocial SaveGame playedTime " + playedTime.TotalMinutes);
             if (savingToCloud)
             {
                 SaveComplete(false);
             };
             saveCallback = callback;
             savingToCloud = true;
-            Debug.LogWarning("GooglePlaySocial SaveGame filename " + CloudFileName);
 
-            PlayGamesActive.SavedGame.OpenWithAutomaticConflictResolution(CloudFileName, DataSource.ReadCacheOrNetwork, ConflictResolutionStrategy.UseLongestPlaytime,
+            PlayGamesActive.SavedGame.OpenWithAutomaticConflictResolution(cloudFileName, DataSource.ReadCacheOrNetwork, ConflictResolutionStrategy.UseLongestPlaytime,
               (SavedGameRequestStatus status, ISavedGameMetadata game) =>
               {
                   if (status != SavedGameRequestStatus.Success)
@@ -148,14 +149,12 @@ namespace Drolegames.SocialService
 
         private void SavedGameOpened(SavedGameRequestStatus status, ISavedGameMetadata game)
         {
-            Debug.LogWarning($"GooglePlaySocial SavedGameOpened {status} {game.Description}");
             if (status == SavedGameRequestStatus.Success)
             {
                 PlayGamesActive.SavedGame.ReadBinaryData(game, SavedGameLoaded);
             }
             else
             {
-                Debug.LogWarning($"GooglePlaySocial SavedGameOpened Fail");
                 LoadComplete(false);
             }
         }

@@ -2,8 +2,6 @@
 {
     using Drolegames.IO;
     using System;
-    using System.Collections;
-    using System.IO;
     using System.Threading.Tasks;
     using UnityEngine;
     using UnityEngine.SocialPlatforms;
@@ -16,13 +14,28 @@
 
         public bool IsLoggedIn { get; private set; }
 
-        public string Name => IsLoggedIn ? "Jesper" : string.Empty;
-        public string Greeting => $"Welcome {Name}";
-        public string StoreName => "Mock";
+        public string Name => IsLoggedIn ? userName : string.Empty;
+        private readonly string greeting;
+        public string Greeting => string.Format(greeting, Name);
+        public string StoreName { get; private set; }
 
         public byte[] CloudData { get; private set; }
 
-        public bool CloudSaveEnabled => true;
+        public bool CloudSaveEnabled { get; private set; }
+
+        private readonly string cloudFileName;
+        private readonly string userName;
+        
+        private readonly float loginDelay;
+        public MockSocial(SocialMockSettingsSO settings)
+        {
+            CloudSaveEnabled = settings.cloudSaveEnabled;
+            cloudFileName = settings.cloudFileName;
+            userName = settings.userName;
+            greeting = settings.greeting;
+            StoreName = settings.storeName;
+            loginDelay = settings.loginDelay;
+        }
 
         public void Initialize()
         {
@@ -31,7 +44,7 @@
 
         public void Login(Action<bool> callback)
         {
-            UseDelay(1.5f, () => callback?.Invoke(IsLoggedIn = true));
+            UseDelay(loginDelay, () => callback?.Invoke(IsLoggedIn = true));
         }
 
         public void Logout(Action<bool> callback)
@@ -42,23 +55,45 @@
 
         public void SaveGame(byte[] data, TimeSpan playedTime, Action<bool> callback)
         {
+            bool success = false;
+            if (!CloudSaveEnabled)
+            {
+                callback?.Invoke(success);
+                return;
+            }
             CloudData = data;
-            bool success = FileManager.WriteToFile("mock.txt", System.Text.ASCIIEncoding.Default.GetString(data));
+            try
+            {
+                FileManager.WriteToFile($"{cloudFileName}.txt", System.Text.ASCIIEncoding.Default.GetString(data));
+                success = true;
+            }
+            catch
+            {
+                success = false;
+            }
             UseDelay(1.5f, () => callback?.Invoke(success));
         }
 
         public void LoadFromCloud(Action<bool> callback)
         {
-            bool success = FileManager.LoadFromFile("mock.txt", out string json);
-            if (success)
+            bool success = false;
+            if (!CloudSaveEnabled)
             {
-                CloudData = System.Text.ASCIIEncoding.Default.GetBytes(json);
+                callback?.Invoke(success);
+                return;
             }
-
-            Debug.Log("Mock Cloud Load Success? " + success);
-            UseDelay(1.5f, () => callback?.Invoke(success));
+            try
+            {
+                FileManager.LoadFromFile($"{cloudFileName}.txt", out string json);
+                CloudData = System.Text.ASCIIEncoding.Default.GetBytes(json);
+                success = true;
+            }
+            catch
+            {
+                success = false;
+            }
+            UseDelay(loginDelay, () => callback?.Invoke(success));
         }
-
 
         void UseDelay(float time, Action callback)
         {
@@ -87,7 +122,6 @@
         public void ShowAchievementsUI()
         {
             Debug.Log("MockSocial ShowAchievementsUI");
-
         }
     }
 }

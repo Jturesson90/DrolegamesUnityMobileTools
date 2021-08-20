@@ -8,6 +8,10 @@
 
     public class SocialManager : Singleton<SocialManager>
     {
+        [SerializeField] private SocialAndroidSettingsSO m_androidSettings = default;
+        [SerializeField] private SocialIOSSettingsSO m_iosSettings = default;
+        [SerializeField] private SocialMockSettingsSO m_mockSettings = default;
+
         private ISocialService socialService;
         public event EventHandler<SocialManagerArgs> LoggedInChanged;
         public event EventHandler<bool> LoggingInPendingChanged;
@@ -51,14 +55,12 @@
         {
             base.Awake();
 #if UNITY_EDITOR
-            socialService = new MockSocial();
+            socialService = new MockSocial(m_mockSettings);
 #elif UNITY_ANDROID
-            socialService = new GooglePlaySocial();
+            socialService = new GooglePlaySocial(m_androidSettings);
 #elif UNITY_IOS
-            socialService = new IOSSocial();
-#else
+            socialService = new IOSSocial(m_iosSettings);
 #endif
-
             socialService.Initialize();
         }
 

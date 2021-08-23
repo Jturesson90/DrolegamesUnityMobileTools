@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Drolegames.Achievements
+﻿namespace Drolegames.SocialService
 {
+    using System;
     [Serializable]
     public struct DroleAchievement
     {

@@ -2,12 +2,12 @@
 {
     using System;
     using UnityEngine;
-    using UnityEngine.SocialPlatforms;
     using Drolegames.Utils;
     using Drolegames.IO;
 
     public class SocialManager : Singleton<SocialManager>
     {
+        [Header("Platform settings")]
         [SerializeField] private SocialAndroidSettingsSO m_androidSettings = default;
         [SerializeField] private SocialIOSSettingsSO m_iosSettings = default;
         [SerializeField] private SocialMockSettingsSO m_mockSettings = default;
@@ -51,6 +51,10 @@
         public string StoreName => socialService.StoreName;
         public bool CloudSaveEnabled => socialService.CloudSaveEnabled;
         public RuntimePlatform Platform => socialService.Platform;
+
+        public IAchievements Achievements { get; private set; }
+        private Achievements achievements;
+
         protected override void Awake()
         {
             base.Awake();
@@ -62,13 +66,27 @@
             socialService = new IOSSocial(m_iosSettings);
 #endif
             socialService.Initialize();
+
+            achievements = new Achievements(socialService, socialService);
+            if (socialService.AchievementsEnabled)
+            {
+                achievements.Initialize();
+            }
+            Achievements = achievements;
         }
 
         private void Start()
         {
             Login();
         }
-
+        protected override void OnDestroy()
+        {
+            if (socialService.AchievementsEnabled)
+            {
+                achievements.Save();
+            }
+            base.OnDestroy();
+        }
         public void Login()
         {
             LoggingInPending = true;
@@ -148,10 +166,6 @@
                 });
             });
         }
-        public void UnlockAchievement(string achivementId, Action<bool> callback) => socialService.UnlockAchievement(achivementId, callback);
-        public void IncrementAchievement(string achivementId, double steps, Action<bool> callback) => socialService.IncrementAchievement(achivementId, steps, callback);
-        public void LoadAchievements(Action<IAchievement[]> callback) => socialService.LoadAchievements(callback);
-        public void ShowAchievementsUI() => socialService.ShowAchievementsUI();
     }
 
     public class SocialManagerArgs : EventArgs

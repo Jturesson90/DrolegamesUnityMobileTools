@@ -28,10 +28,15 @@ namespace Drolegames.SocialService
         private PlayGamesPlatform PlayGamesActive => (PlayGamesPlatform)Social.Active;
 
         public bool CloudSaveEnabled { get; private set; }
+
+        public bool AchievementsEnabled { get; private set; }
+        public bool LeaderboardsEnabled { get; private set; }
         private readonly bool debugMode = false;
         public GooglePlaySocial(SocialAndroidSettingsSO settings)
         {
-            CloudSaveEnabled = settings.cloudSaveEnabled;
+            LeaderboardsEnabled = settings.leaderboards;
+            AchievementsEnabled = settings.achievements;
+            CloudSaveEnabled = settings.cloudSave;
             greeting = settings.greeting;
             cloudFileName = settings.cloudFileName;
             StoreName = settings.storeName;
@@ -79,13 +84,15 @@ namespace Drolegames.SocialService
             PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, success =>
             {
                 callback?.Invoke(success == SignInStatus.Success);
+                IsLoggedInChanged?.Invoke(IsLoggedIn);
             });
         }
-
+        public event Action<bool> IsLoggedInChanged;
         public void Logout(Action<bool> callback)
         {
             PlayGamesPlatform.Instance.SignOut();
             callback?.Invoke(true);
+            IsLoggedInChanged?.Invoke(IsLoggedIn);
         }
 
         public void SaveGame(byte[] data, TimeSpan playedTime, Action<bool> callback)
@@ -140,6 +147,9 @@ namespace Drolegames.SocialService
 
         Action<bool> loadCallback;
         bool loadingFromCloud = false;
+
+
+
         private void LoadComplete(bool success)
         {
             loadingFromCloud = false;

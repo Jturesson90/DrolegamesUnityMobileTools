@@ -1,8 +1,7 @@
-﻿namespace Drolegames.Achievements
+﻿namespace Drolegames.SocialService
 {
     using UnityEngine;
     using UnityEngine.UI;
-    using Drolegames.SocialService;
 
     public class AchievementButton : MonoBehaviour
     {
@@ -53,7 +52,7 @@
         {
             if (SocialManager.IsInitialized)
             {
-                SocialManager.Current.ShowAchievementsUI();
+                SocialManager.Current.Achievements.ShowUI();
             }
         }
 

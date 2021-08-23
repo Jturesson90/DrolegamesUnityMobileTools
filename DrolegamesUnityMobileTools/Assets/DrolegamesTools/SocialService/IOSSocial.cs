@@ -24,9 +24,15 @@
 
         public bool CloudSaveEnabled { get; private set; }
 
+        public bool AchievementsEnabled { get; private set; }
+
+        public bool LeaderboardsEnabled { get; private set; }
+
         public IOSSocial(SocialIOSSettingsSO settings)
         {
-            CloudSaveEnabled = settings.cloudSaveEnabled;
+            LeaderboardsEnabled = settings.leaderboards;
+            AchievementsEnabled = settings.achievements;
+            CloudSaveEnabled = settings.cloudSave;
             greeting = settings.greeting;
             StoreName = settings.storeName;
         }
@@ -36,6 +42,9 @@
             // Dont need any initialization 
         }
         Dictionary<string, IAchievement> achievementById;
+
+        public event Action<bool> IsLoggedInChanged;
+
         public void LoadAchievements(Action<IAchievement[]> callback)
         {
             Social.Active.LoadAchievements(a =>
@@ -60,6 +69,7 @@
             Social.Active.localUser.Authenticate((bool success) =>
             {
                 callback?.Invoke(success);
+                IsLoggedInChanged?.Invoke(IsLoggedIn);
             });
         }
 

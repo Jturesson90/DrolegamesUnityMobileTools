@@ -12,8 +12,20 @@
 
         public bool UserCanSign => true;
 
-        public bool IsLoggedIn { get; private set; }
-
+        private bool isLoggedIn;
+        public bool IsLoggedIn
+        {
+            get => isLoggedIn;
+            private set
+            {
+                if (isLoggedIn != value)
+                {
+                    isLoggedIn = value;
+                    IsLoggedInChanged?.Invoke(value);
+                }
+            }
+        }
+        public event Action<bool> IsLoggedInChanged;
         public string Name => IsLoggedIn ? userName : string.Empty;
         private readonly string greeting;
         public string Greeting => string.Format(greeting, Name);
@@ -22,14 +34,22 @@
         public byte[] CloudData { get; private set; }
 
         public bool CloudSaveEnabled { get; private set; }
+        public bool AchievementsEnabled { get; private set; }
+
+        public bool LeaderboardsEnabled { get; private set; }
 
         private readonly string cloudFileName;
         private readonly string userName;
-        
+
         private readonly float loginDelay;
+
+
+
         public MockSocial(SocialMockSettingsSO settings)
         {
-            CloudSaveEnabled = settings.cloudSaveEnabled;
+            LeaderboardsEnabled = settings.leaderboards;
+            AchievementsEnabled = settings.achievements;
+            CloudSaveEnabled = settings.cloudSave;
             cloudFileName = settings.cloudFileName;
             userName = settings.userName;
             greeting = settings.greeting;
@@ -44,7 +64,8 @@
 
         public void Login(Action<bool> callback)
         {
-            UseDelay(loginDelay, () => callback?.Invoke(IsLoggedIn = true));
+            callback?.Invoke(IsLoggedIn = true);
+            //UseDelay(loginDelay, () => callback?.Invoke(IsLoggedIn = true));
         }
 
         public void Logout(Action<bool> callback)
@@ -71,7 +92,8 @@
             {
                 success = false;
             }
-            UseDelay(1.5f, () => callback?.Invoke(success));
+            callback?.Invoke(success);
+            // TODO FIX to call on mnain thread // UseDelay(1.5f, () => callback?.Invoke(success));
         }
 
         public void LoadFromCloud(Action<bool> callback)
@@ -92,7 +114,8 @@
             {
                 success = false;
             }
-            UseDelay(loginDelay, () => callback?.Invoke(success));
+            callback?.Invoke(success);
+            // UseDelay(loginDelay, () => callback?.Invoke(success));
         }
 
         void UseDelay(float time, Action callback)

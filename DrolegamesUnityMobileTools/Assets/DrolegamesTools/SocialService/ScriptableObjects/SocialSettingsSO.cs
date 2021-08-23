@@ -4,7 +4,12 @@ namespace Drolegames.SocialService
 
     public class SocialSettingsSO : ScriptableObject
     {
-        public bool cloudSaveEnabled = false;
+        [Header("Social services Settings")]
+        public bool cloudSave = false;
+        public bool leaderboards = false;
+        public bool achievements = false;
+
+        [Header("Store settings")]
         [Tooltip("{0} will be the name of the logged in user")]
         public string greeting = "Welcome {0}";
         public string cloudFileName = "cloud_save1";

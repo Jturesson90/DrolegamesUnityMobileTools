@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Drolegames.Utils
+﻿namespace Drolegames.Utils
 {
+    using UnityEngine;
+
     public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
+        [Header("Singleton settings")]
+        [SerializeField] private bool m_DontDestroyOnLoad = false;
         public static T Current { get; private set; }
         public static bool IsInitialized => Current != null;
 
@@ -19,6 +19,10 @@ namespace Drolegames.Utils
             else
             {
                 Current = (T)this;
+                if (m_DontDestroyOnLoad)
+                {
+                    DontDestroyOnLoad(gameObject);
+                }
             }
         }
         protected virtual void OnDestroy()

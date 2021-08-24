@@ -40,7 +40,7 @@ namespace Drolegames.SocialService
             greeting = settings.greeting;
             cloudFileName = settings.cloudFileName;
             StoreName = settings.storeName;
-            debugMode = settings.debugMode;
+            debugMode = settings.debugLog;
         }
 
         public void Initialize()
@@ -204,6 +204,32 @@ namespace Drolegames.SocialService
         public void ShowAchievementsUI()
         {
             PlayGamesActive.ShowAchievementsUI();
+        }
+
+        public void ShowLeaderboardUI()
+        {
+            PlayGamesActive.ShowLeaderboardUI();
+        }
+
+        public void ShowLeaderboardUI(string leaderboardId)
+        {
+            PlayGamesActive.ShowLeaderboardUI(leaderboardId, (UIStatus status) =>
+            {
+                if (status < 0)
+                {
+                    Debug.LogError("ShowLeaderboardUI " + status);
+                }
+            });
+        }
+
+        public void ReportLeaderboardScore(long score, string leaderboardId, Action<bool> callback)
+        {
+            PlayGamesActive.ReportScore(score, leaderboardId, callback);
+        }
+
+        public void ReportLeaderboardScore(long score, string leaderboardId, string tag, Action<bool> callback)
+        {
+            PlayGamesActive.ReportScore(score, leaderboardId, tag, callback);
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Drolegames.SocialService
     [CreateAssetMenu(fileName = "", menuName = "Drolegames/SocialSettings/Android")]
     public class SocialAndroidSettingsSO : SocialSettingsSO
     {
-        public bool debugMode = false;
+        [Header("Android Settings")]
+        public bool debugLog = false;
     }
 }

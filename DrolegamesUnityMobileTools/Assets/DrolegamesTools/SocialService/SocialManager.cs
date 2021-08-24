@@ -55,6 +55,9 @@
         public IAchievements Achievements { get; private set; }
         private Achievements achievements;
 
+        public ILeaderboards Leaderboards { get; private set; }
+        private Leaderboards leaderboards;
+
         protected override void Awake()
         {
             base.Awake();
@@ -68,16 +71,24 @@
             socialService.Initialize();
 
             achievements = new Achievements(socialService, socialService);
-            if (socialService.AchievementsEnabled)
-            {
-                achievements.Initialize();
-            }
             Achievements = achievements;
+
+            leaderboards = new Leaderboards(socialService, socialService);
+            Leaderboards = leaderboards;
+
         }
 
         private void Start()
         {
             Login();
+            if (socialService.AchievementsEnabled)
+            {
+                achievements.Initialize();
+            }
+            if (socialService.LeaderboardsEnabled)
+            {
+                leaderboards.Initialize();
+            }
         }
         protected override void OnDestroy()
         {

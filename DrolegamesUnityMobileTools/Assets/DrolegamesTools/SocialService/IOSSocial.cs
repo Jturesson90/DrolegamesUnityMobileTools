@@ -103,5 +103,25 @@
         {
             Social.Active.ReportProgress(achievementId, 100d, callback);
         }
+
+        public void ShowLeaderboardUI()
+        {
+            Social.ShowLeaderboardUI();
+        }
+
+        public void ShowLeaderboardUI(string leaderboardId)
+        {
+            ShowLeaderboardUI();
+        }
+
+        public void ReportLeaderboardScore(long score, string leaderboardId, Action<bool> callback)
+        {
+            Social.ReportScore(score, leaderboardId, callback);
+        }
+
+        public void ReportLeaderboardScore(long score, string leaderboardId, string tag, Action<bool> callback)
+        {
+            ReportLeaderboardScore(score, leaderboardId, callback);
+        }
     }
 }

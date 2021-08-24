@@ -16,7 +16,7 @@
         string Name { get; }
         string StoreName { get; }
         string Greeting { get; }
-     
+
     }
     public interface ISocialAchievements
     {
@@ -35,5 +35,9 @@
     public interface ISocialLeaderboards
     {
         bool LeaderboardsEnabled { get; }
+        void ShowLeaderboardUI();
+        void ShowLeaderboardUI(string leaderboardId);
+        void ReportLeaderboardScore(long score, string leaderboardId, Action<bool> callback);
+        void ReportLeaderboardScore(long score, string leaderboardId, string tag, Action<bool> callback);
     }
 }

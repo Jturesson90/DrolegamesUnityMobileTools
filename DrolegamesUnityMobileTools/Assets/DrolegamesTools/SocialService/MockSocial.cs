@@ -118,6 +118,7 @@
             // UseDelay(loginDelay, () => callback?.Invoke(success));
         }
 
+        // TODO Fix, call back on main thread
         void UseDelay(float time, Action callback)
         {
             Task.Run(async delegate
@@ -142,9 +143,29 @@
             callback(new IAchievement[0]);
         }
 
+        public void ShowLeaderboardUI()
+        {
+            Social.ShowLeaderboardUI();
+        }
+
+        public void ShowLeaderboardUI(string leaderboardId)
+        {
+            ShowLeaderboardUI();
+        }
+
+        public void ReportLeaderboardScore(long score, string leaderboardId, Action<bool> callback)
+        {
+            Social.ReportScore(score, leaderboardId, callback);
+        }
+
+        public void ReportLeaderboardScore(long score, string leaderboardId, string tag, Action<bool> callback)
+        {
+            ReportLeaderboardScore(score, leaderboardId, callback);
+        }
+
         public void ShowAchievementsUI()
         {
-            Debug.Log("MockSocial ShowAchievementsUI");
+            Social.ShowLeaderboardUI();
         }
     }
 }

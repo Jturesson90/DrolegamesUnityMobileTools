@@ -55,7 +55,7 @@ namespace Drolegames.SocialService
             {
                 if (pending.hasIncrement)
                 {
-                    Increment(pending.id, pending.increment);
+                    Increment(pending.id, pending.steps, pending.stepsToComplete);
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace Drolegames.SocialService
             Debug.Log($"UnlockAchievement {id}");
 #endif
             if (!allAchievements.ContainsKey(id) || unlockedAchievements.ContainsKey(id)) return;
-            var s = new DroleAchievement() { id = id, hasIncrement = false };
+            var s = new DroleAchievement(id);
             if (!session.IsLoggedIn)
             {
                 AddPendingAchievement(s);
@@ -96,7 +96,7 @@ namespace Drolegames.SocialService
 
             });
         }
-        public void Increment(string id, double steps, Action<bool> callback = null)
+        public void Increment(string id, double steps, double stepsRatio, Action<bool> callback = null)
         {
             if (!social.AchievementsEnabled) return;
 #if DEBUG_ACHIEVEMENTS
@@ -104,40 +104,40 @@ namespace Drolegames.SocialService
 #endif
             if (!allAchievements.ContainsKey(id) || unlockedAchievements.ContainsKey(id)) return;
 
-            var s = new DroleAchievement() { id = id, hasIncrement = true, increment = steps };
+            var s = new DroleAchievement(id, steps, stepsRatio);
             if (!session.IsLoggedIn)
             {
                 AddPendingAchievement(s);
                 return;
             }
-            social.IncrementAchievement(id, steps, (bool success) =>
-            {
+            social.IncrementAchievement(id, s.steps, s.stepsToComplete, (bool success) =>
+             {
 #if DEBUG_ACHIEVEMENTS
                     Debug.Log($"IncrementAchievement success ? {success}");
 #endif
-                callback?.Invoke(success);
-                if (success)
-                {
-                    RemovePendingAchievement(s);
-                }
-                else
-                {
-                    AddPendingAchievement(s);
-                }
+                 callback?.Invoke(success);
+                 if (success)
+                 {
+                     RemovePendingAchievement(s);
+                 }
+                 else
+                 {
+                     AddPendingAchievement(s);
+                 }
 
-            });
+             });
 
         }
 
         private void RemovePendingAchievement(DroleAchievement pendingAchievement)
         {
-            int index = _pendingAchievements.pending.FindIndex(c => c.id.Equals(pendingAchievement.id) && c.hasIncrement == pendingAchievement.hasIncrement && c.increment.Equals(pendingAchievement.increment));
+            int index = _pendingAchievements.pending.FindIndex(c => c.id.Equals(pendingAchievement.id) && c.hasIncrement == pendingAchievement.hasIncrement && c.steps.Equals(pendingAchievement.steps));
             if (index >= 0)
                 _pendingAchievements.pending.RemoveAt(index);
         }
         private void AddPendingAchievement(DroleAchievement pendingAchievement)
         {
-            if (!_pendingAchievements.pending.Any(c => c.id.Equals(pendingAchievement.id) && c.hasIncrement == pendingAchievement.hasIncrement && c.increment.Equals(pendingAchievement.increment)))
+            if (!_pendingAchievements.pending.Any(c => c.id.Equals(pendingAchievement.id) && c.hasIncrement == pendingAchievement.hasIncrement && c.steps.Equals(pendingAchievement.steps)))
             {
                 _pendingAchievements.pending.Add(pendingAchievement);
             }

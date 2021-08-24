@@ -191,7 +191,7 @@ namespace Drolegames.SocialService
             PlayGamesActive.UnlockAchievement(achievementId, callback);
         }
 
-        public void IncrementAchievement(string achievementId, double steps, Action<bool> callback)
+        public void IncrementAchievement(string achievementId, double steps, double stepsRatio, Action<bool> callback)
         {
             PlayGamesActive.IncrementAchievement(achievementId, (int)steps, callback);
         }

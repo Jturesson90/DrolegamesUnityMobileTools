@@ -5,6 +5,9 @@
     using System.Linq;
     using UnityEngine;
     using UnityEngine.SocialPlatforms;
+#if UNITY_IOS || UNITY_EDITOR
+    using UnityEngine.SocialPlatforms.GameCenter;
+#endif
 
     public class IOSSocial : ISocialService
     {
@@ -39,7 +42,9 @@
 
         public void Initialize()
         {
-            // Dont need any initialization 
+#if UNITY_IOS || UNITY_EDITOR
+            GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
+#endif
         }
         Dictionary<string, IAchievement> achievementById;
 
@@ -90,12 +95,12 @@
             Social.Active.ShowAchievementsUI();
         }
 
-        public void IncrementAchievement(string achievementId, double steps, Action<bool> callback)
+        public void IncrementAchievement(string achievementId, double steps, double stepsToComplete, Action<bool> callback)
         {
             if (achievementById.ContainsKey(achievementId))
             {
                 var achievement = achievementById[achievementId];
-                achievement.percentCompleted += steps;
+                achievement.percentCompleted += (steps / stepsToComplete);
                 Social.Active.ReportProgress(achievementId, achievement.percentCompleted, callback);
             }
         }

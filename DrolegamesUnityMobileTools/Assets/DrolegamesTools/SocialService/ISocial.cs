@@ -23,7 +23,7 @@
         bool AchievementsEnabled { get; }
         void LoadAchievements(Action<IAchievement[]> callback);
         void UnlockAchievement(string achievementId, Action<bool> callback);
-        void IncrementAchievement(string achievementId, double steps, Action<bool> callback);
+        void IncrementAchievement(string achievementId, double steps, double maxSteps, Action<bool> callback);
         void ShowAchievementsUI();
     }
     public interface ISession

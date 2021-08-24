@@ -133,7 +133,7 @@
             callback(true);
         }
 
-        public void IncrementAchievement(string achievementId, double steps, Action<bool> callback)
+        public void IncrementAchievement(string achievementId, double steps, double stepsToComplete, Action<bool> callback)
         {
             callback(true);
         }

@@ -19,6 +19,7 @@ namespace Drolegames.SocialService
         {
             this.social = social;
             this.session = session;
+            _pendingAchievements = new PendingAchievements();
         }
 
         private void Session_IsLoggedInChanged(bool isLoggedIn)

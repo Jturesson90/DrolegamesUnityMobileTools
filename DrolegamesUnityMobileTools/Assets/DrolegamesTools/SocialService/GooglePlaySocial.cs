@@ -31,6 +31,9 @@ namespace Drolegames.SocialService
 
         public bool AchievementsEnabled { get; private set; }
         public bool LeaderboardsEnabled { get; private set; }
+
+        public string LocalUserId => PlayGamesActive.localUser.id;
+
         private readonly bool debugMode = false;
         public GooglePlaySocial(SocialAndroidSettingsSO settings)
         {
@@ -230,6 +233,12 @@ namespace Drolegames.SocialService
         public void ReportLeaderboardScore(long score, string leaderboardId, string tag, Action<bool> callback)
         {
             PlayGamesActive.ReportScore(score, leaderboardId, tag, callback);
+        }
+
+        public void LoadUserLeaderboardScore(ILeaderboard leaderboard, Action<bool> callback)
+        {
+            leaderboard.SetUserFilter(new string[] { PlayGamesActive.localUser.id });
+            leaderboard.LoadScores(callback);
         }
     }
 }

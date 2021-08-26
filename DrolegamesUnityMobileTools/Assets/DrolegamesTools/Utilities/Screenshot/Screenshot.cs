@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Drolegames.Utilities.Screenshot
+namespace Drolegames.Utils.Screenshot
 {
     public class Screenshot : MonoBehaviour
     {

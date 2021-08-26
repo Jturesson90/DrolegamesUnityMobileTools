@@ -31,6 +31,7 @@
         bool IsLoggedIn { get; }
         RuntimePlatform Platform { get; }
         event Action<bool> IsLoggedInChanged;
+        string LocalUserId { get; }
     }
     public interface ISocialLeaderboards
     {
@@ -39,5 +40,6 @@
         void ShowLeaderboardUI(string leaderboardId);
         void ReportLeaderboardScore(long score, string leaderboardId, Action<bool> callback);
         void ReportLeaderboardScore(long score, string leaderboardId, string tag, Action<bool> callback);
+        void LoadUserLeaderboardScore(ILeaderboard leaderboard, Action<bool> callback);
     }
 }

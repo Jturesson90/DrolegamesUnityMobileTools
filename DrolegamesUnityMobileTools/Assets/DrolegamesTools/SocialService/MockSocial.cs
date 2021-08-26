@@ -38,12 +38,12 @@
 
         public bool LeaderboardsEnabled { get; private set; }
 
+        public string LocalUserId => userName;
+
         private readonly string cloudFileName;
         private readonly string userName;
 
         private readonly float loginDelay;
-
-
 
         public MockSocial(SocialMockSettingsSO settings)
         {
@@ -64,8 +64,14 @@
 
         public void Login(Action<bool> callback)
         {
+            if (IsLoggedIn)
+            {
+                callback?.Invoke(false);
+                return;
+            }
+            Social.Active.localUser.Authenticate((bool success) => { });
             callback?.Invoke(IsLoggedIn = true);
-            //UseDelay(loginDelay, () => callback?.Invoke(IsLoggedIn = true));
+            IsLoggedInChanged?.Invoke(IsLoggedIn);
         }
 
         public void Logout(Action<bool> callback)
@@ -155,7 +161,8 @@
 
         public void ReportLeaderboardScore(long score, string leaderboardId, Action<bool> callback)
         {
-            Social.ReportScore(score, leaderboardId, callback);
+            Debug.LogWarning("ReportLeaderboardScore not implemented in Editor");
+            callback?.Invoke(false);
         }
 
         public void ReportLeaderboardScore(long score, string leaderboardId, string tag, Action<bool> callback)
@@ -166,6 +173,12 @@
         public void ShowAchievementsUI()
         {
             Social.ShowLeaderboardUI();
+        }
+
+        public void LoadUserLeaderboardScore(ILeaderboard leaderboard, Action<bool> callback)
+        {
+            Debug.LogWarning("LoadUserLeaderboardScore not implemented in Editor");
+            callback?.Invoke(false);
         }
     }
 }

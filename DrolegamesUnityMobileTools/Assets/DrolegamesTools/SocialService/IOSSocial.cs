@@ -31,6 +31,8 @@
 
         public bool LeaderboardsEnabled { get; private set; }
 
+        public string LocalUserId => Social.Active.localUser.id;
+
         public IOSSocial(SocialIOSSettingsSO settings)
         {
             LeaderboardsEnabled = settings.leaderboards;
@@ -127,6 +129,12 @@
         public void ReportLeaderboardScore(long score, string leaderboardId, string tag, Action<bool> callback)
         {
             ReportLeaderboardScore(score, leaderboardId, callback);
+        }
+
+        public void LoadUserLeaderboardScore(ILeaderboard leaderboard, Action<bool> callback)
+        {
+            leaderboard.SetUserFilter(new string[] { Social.localUser.id });
+            leaderboard.LoadScores(callback);
         }
     }
 }

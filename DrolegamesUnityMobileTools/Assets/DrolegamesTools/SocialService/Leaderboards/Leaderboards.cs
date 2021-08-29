@@ -3,13 +3,15 @@
     using Drolegames.Utils;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.Serialization;
     using UnityEngine;
     using UnityEngine.SocialPlatforms;
 
     public class Leaderboards : ILeaderboards
     {
-        private ISocialLeaderboards social;
-        private ISession session;
+        private readonly ISocialLeaderboards social;
+        private readonly ISession session;
         public Leaderboards(ISocialLeaderboards social, ISession session)
         {
             this.social = social;
@@ -17,102 +19,247 @@
         }
         public void Initialize()
         {
-            // TODO, if we dont want to use the default UI, we can Loadscores here
-        }
-        public long GetLeaderboardUserScore(string leaderboardId) => SavedLeaderboards.GetLeaderboard(leaderboardId, session, social).GetUserScore();
-        public void ShowUI() => social.ShowLeaderboardUI();
-        public void ShowUI(string leaderboardId) => social.ShowLeaderboardUI(leaderboardId);
-        public void ReportScore(long score, string leaderboardId, Action<bool> callback) => ReportScore(score, leaderboardId, string.Empty, callback);
-        public void ReportScore(long score, string leaderboardId, string tag, Action<bool> callback)
-        {
-            var savedLeaderboard = SavedLeaderboards.GetLeaderboard(leaderboardId, session, social);
-
-            if (savedLeaderboard.Leaderboard.localUserScore != null && savedLeaderboard.Leaderboard.localUserScore.value > score) return;
-            long sc = Math.Max(score, savedLeaderboard.GetUserScore());
+            SavedLeaderboards.Load();
             if (session.IsLoggedIn)
             {
-                social.ReportLeaderboardScore(sc, leaderboardId, tag, (bool success) =>
-                {
-                    callback?.Invoke(success);
-                });
+                SavedLeaderboards.Flush(session, social);
             }
-            savedLeaderboard.ApplyNewScore(score);
+            else
+            {
+                session.IsLoggedInChanged += (bool success) =>
+                {
+                    if (success)
+                    {
+                        SavedLeaderboards.Flush(session, social);
+                    }
+                };
+            }
+            // TODO, if we dont want to use the default UI, we can Loadscores here
+        }
+
+
+        public long GetLocalUserAllTimeHighscore(string leaderboardId, bool isMoreBetter) => SavedLeaderboards.GetLeaderboard(leaderboardId, session, social, isMoreBetter).highestScore;
+        public void ShowUI() => social.ShowLeaderboardUI();
+        public void ShowUI(string leaderboardId) => social.ShowLeaderboardUI(leaderboardId);
+        public void ReportScore(long score, string leaderboardId, Action<bool> callback, bool isMoreBetter) => ReportScore(score, leaderboardId, string.Empty, callback, isMoreBetter);
+        public void ReportScore(long score, string leaderboardId, string tag, Action<bool> callback, bool isMoreBetter)
+        {
+            var savedLeaderboard = SavedLeaderboards.GetLeaderboard(leaderboardId, session, social, isMoreBetter);
+            if (session.IsLoggedIn)
+            {
+                social.ReportLeaderboardScore(score, leaderboardId, tag, (bool success) =>
+                 {
+                     callback?.Invoke(success);
+                     if (!success)
+                     {
+                         savedLeaderboard.AddUnpublishedScore(score, DateTime.Now);
+                     }
+                 });
+            }
+            else
+            {
+                savedLeaderboard.AddUnpublishedScore(score, DateTime.Now);
+            }
+
+            savedLeaderboard.ApplyNewHighscore(score);
+            SavedLeaderboards.Save();
         }
 
         private sealed class SavedLeaderboards
         {
-            private long score;
-            readonly string SAVE_PATH;
-            public ILeaderboard Leaderboard { get; private set; }
-            private static Dictionary<string, SavedLeaderboards> savedLeaderboardsById = new Dictionary<string, SavedLeaderboards>();
-            public static event Action<SavedLeaderboards> onLoadScoresComplete;
+            public static event Action<LeaderboardSaveData> OnLoadScoresComplete;
 
-            private SavedLeaderboards(string id)
+            static LeaderboardsdSave save;
+
+            static readonly string SAVE_PATH = $"{Application.persistentDataPath}/leaderboards.dat";
+
+            public SavedLeaderboards()
             {
-                Leaderboard = Social.CreateLeaderboard();
-                Leaderboard.id = id;
-                SAVE_PATH = $"{Application.persistentDataPath}/ld_{id}.dat";
+                save = new LeaderboardsdSave();
             }
-            public static SavedLeaderboards GetLeaderboard(string id, ISession session, ISocialLeaderboards social)
+            public static LeaderboardSaveData GetLeaderboard(string id, ISession session, ISocialLeaderboards social, bool isMoreBetter)
             {
-                if (savedLeaderboardsById.ContainsKey(id))
+                if (save == null) return null;
+
+                LeaderboardSaveData result = null;
+
+                int saveDateLen = save.data.Length;
+
+                for (int i = 0; i < saveDateLen; i++)
                 {
-                    return savedLeaderboardsById[id];
+                    if (save.data[i].id.Equals(id))
+                        result = save.data[i];
                 }
-                var savedLeaderboard = new SavedLeaderboards(id);
-                if (session.IsLoggedIn)
+                if (result == null)
                 {
-                    social.LoadUserLeaderboardScore(savedLeaderboard.Leaderboard, (bool success) =>
+                    result = new LeaderboardSaveData(id, isMoreBetter);
+                    save.Add(result);
+                    Save();
+                }
+                if (result.isMoreBetter != isMoreBetter)
+                {
+                    result.isMoreBetter = isMoreBetter;
+                    Save();
+                }
+
+
+                if (session.IsLoggedIn && !result.LoadedScores)
+                {
+                    social.LoadUserLeaderboardScore(result.GetLeaderBoard(), (bool success) =>
                     {
                         if (success)
                         {
-                            savedLeaderboard.ApplyNewScore(savedLeaderboard.Leaderboard.localUserScore.value);
-                            onLoadScoresComplete?.Invoke(savedLeaderboard);
+                            result.LoadedScores = true;
+                            result.ApplyNewHighscore(result.GetLeaderBoard().localUserScore.value);
+                            OnLoadScoresComplete?.Invoke(result);
                         }
                     });
                 }
-                savedLeaderboard.Load();
-                savedLeaderboardsById.Add(id, savedLeaderboard);
 
-                return savedLeaderboard;
+                return result;
             }
 
-            public long GetUserScore()
+            public static void Flush(ISession session, ISocialLeaderboards social)
             {
-                return score;
-            }
-            public void ApplyNewScore(long score)
-            {
-                if (score > this.score)
+                if (!session.IsLoggedIn) return;
+
+                int saveDateLen = save.data.Length;
+                for (int i = 0; i < saveDateLen; i++)
                 {
-                    this.score = score;
-                    Save();
+                    LeaderboardSaveData lbsd = save.data[i];
+                    lbsd.unpublishedScores = lbsd.unpublishedScores.Where(a => DateTime.FromFileTime(a.date) > DateTime.Now.AddDays(-7)).ToArray();
+                    int unpublishedLen = lbsd.unpublishedScores.Length;
+                    for (int j = 0; j < unpublishedLen; j++)
+                    {
+                        UnpublishedScores us = lbsd.unpublishedScores[j];
+                        social.ReportLeaderboardScore(us.score, lbsd.id, (bool success) =>
+                        {
+
+                        });
+                    }
+                    lbsd.ClearUnpublishedScores();
+                }
+                Save();
+            }
+
+            public static void Save()
+            {
+                if (SAVE_PATH.Equals(string.Empty))
+                {
+                    Debug.Log("COULD NOT SAVE, NEEDS LOAD FIRST");
+                    return;
+                }
+                try
+                {
+                    EasySerializer.SerializeObjectToFile(save, SAVE_PATH);
+                }
+                catch
+                {
+                    EasySerializer.RemoveFile(SAVE_PATH);
                 }
             }
 
-            public void Save()
+            public static void Load()
             {
-                if (!(EasySerializer.DeserializeObjectFromFile(SAVE_PATH) is HighscoreSaveData savedScore))
+                try
                 {
-                    savedScore = new HighscoreSaveData { score = score };
+                    if (!(EasySerializer.DeserializeObjectFromFile(SAVE_PATH) is LeaderboardsdSave savedScore))
+                    {
+                        savedScore = new LeaderboardsdSave();
+                    }
+                    save = savedScore;
                 }
-                savedScore.score = score > savedScore.score ? score : savedScore.score;
-                EasySerializer.SerializeObjectToFile(savedScore, SAVE_PATH);
-            }
-
-            public void Load()
-            {
-                if (!(EasySerializer.DeserializeObjectFromFile(SAVE_PATH) is HighscoreSaveData savedScore))
+                catch
                 {
-                    savedScore = new HighscoreSaveData();
+                    save = new LeaderboardsdSave();
+                    EasySerializer.RemoveFile(SAVE_PATH);
                 }
-                ApplyNewScore(savedScore.score);
             }
 
             [Serializable]
-            private class HighscoreSaveData
+            public class LeaderboardsdSave
             {
-                public long score;
+                public LeaderboardSaveData[] data;
+                public LeaderboardsdSave()
+                {
+                    data = new LeaderboardSaveData[0];
+                }
+
+                internal void Add(LeaderboardSaveData result)
+                {
+                    data = data.Append(result).ToArray();
+                }
+            }
+        }
+        [Serializable]
+        public class LeaderboardSaveData
+        {
+            public bool LoadedScores { get; set; }
+            public readonly string id;
+            public bool isMoreBetter;
+            public string tag;
+            public long highestScore;
+            [NonSerialized] private ILeaderboard leaderboard;
+            public UnpublishedScores[] unpublishedScores = new UnpublishedScores[0];
+            public LeaderboardSaveData(string id, bool isMoreBetter)
+            {
+                this.isMoreBetter = isMoreBetter;
+                this.id = id;
+                leaderboard = Social.CreateLeaderboard();
+                leaderboard.id = id;
+                unpublishedScores = new UnpublishedScores[0];
+            }
+            public ILeaderboard GetLeaderBoard()
+            {
+                if (leaderboard == null)
+                {
+                    leaderboard = Social.CreateLeaderboard();
+                    leaderboard.id = id;
+                }
+
+                return leaderboard;
+            }
+            public void ClearUnpublishedScores()
+            {
+                unpublishedScores = new UnpublishedScores[0];
+            }
+            public void ApplyNewHighscore(long score)
+            {
+                if (isMoreBetter)
+                {
+                    if (score > highestScore)
+                    {
+                        highestScore = score;
+                    }
+                }
+                else
+                {
+                    if (score < highestScore)
+                    {
+                        highestScore = score;
+                    }
+                }
+            }
+
+            public void AddUnpublishedScore(long score, DateTime time)
+            {
+                var u = new List<UnpublishedScores>(unpublishedScores)
+                {
+                    new UnpublishedScores(score, time.ToFileTime())
+                };
+                unpublishedScores = u.ToArray();
+            }
+        }
+
+        [Serializable]
+        public class UnpublishedScores
+        {
+            public long date;
+            public long score;
+            public UnpublishedScores(long score, long date)
+            {
+                this.score = score;
+                this.date = date;
             }
         }
 

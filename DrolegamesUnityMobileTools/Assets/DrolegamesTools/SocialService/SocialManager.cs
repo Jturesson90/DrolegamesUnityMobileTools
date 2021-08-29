@@ -51,6 +51,7 @@
         public string StoreName => socialService.StoreName;
         public bool CloudSaveEnabled => socialService.CloudSaveEnabled;
         public RuntimePlatform Platform => socialService.Platform;
+        public bool SocialEnabled { get; private set; }
 
         public IAchievements Achievements { get; private set; }
         private Achievements achievements;
@@ -62,12 +63,30 @@
         {
             base.Awake();
 #if UNITY_EDITOR
-            socialService = new MockSocial(m_mockSettings);
+            if (m_mockSettings != null)
+            {
+                socialService = new MockSocial(m_mockSettings);
+            }
+
 #elif UNITY_ANDROID
+ if (m_androidSettings != null) { 
             socialService = new GooglePlaySocial(m_androidSettings);
+            }
 #elif UNITY_IOS
-            socialService = new IOSSocial(m_iosSettings);
+            if(m_iosSettings != null)
+            {
+                socialService = new IOSSocial(m_iosSettings);
+            }
 #endif
+            if (socialService == null)
+            {
+                socialService = new NoSocial();
+                SocialEnabled = false;
+            }
+            else
+            {
+                SocialEnabled = true;
+            }
             socialService.Initialize();
 
             achievements = new Achievements(socialService, socialService);
@@ -80,6 +99,8 @@
 
         private void Start()
         {
+            if (!SocialEnabled) return;
+
             Login();
             if (socialService.AchievementsEnabled)
             {
@@ -89,35 +110,43 @@
             {
                 leaderboards.Initialize();
             }
+
         }
         protected override void OnDestroy()
         {
-            if (socialService.AchievementsEnabled)
+            if (SocialEnabled)
             {
-                achievements.Save();
+                if (socialService.AchievementsEnabled)
+                {
+                    achievements.Save();
+                }
             }
             base.OnDestroy();
         }
         public void Login()
         {
-            LoggingInPending = true;
-            socialService.Login((bool success) =>
+            if (SocialEnabled)
             {
-                if (success && CloudSaveEnabled)
-                    LoadFromCloud();
-
-                LoggingInPending = false;
-                LoggedInChanged?.Invoke(this, new SocialManagerArgs()
+                LoggingInPending = true;
+                socialService.Login((bool success) =>
                 {
-                    IsLoggedIn = socialService.IsLoggedIn,
-                    Platform = socialService.Platform,
-                    Name = socialService.Name
-                });
+                    if (success && CloudSaveEnabled)
+                        LoadFromCloud();
+
+                    LoggingInPending = false;
+                    LoggedInChanged?.Invoke(this, new SocialManagerArgs()
+                    {
+                        IsLoggedIn = socialService.IsLoggedIn,
+                        Platform = socialService.Platform,
+                        Name = socialService.Name
+                    });
+                }
+                );
             }
-            );
         }
         public void SaveGame(bool manual = false)
         {
+            if (!SocialEnabled) return;
             if (GameDataManager.IsInitialized && CloudSaveEnabled)
             {
                 UploadPending = true;
@@ -147,6 +176,7 @@
         }
         public void LoadFromCloud()
         {
+            if (!SocialEnabled) return;
             if (!CloudSaveEnabled) return;
             Debug.LogWarning("SocialManager LoadFromCloud");
             socialService.LoadFromCloud((bool success) =>
@@ -165,6 +195,7 @@
         }
         public void LogOut()
         {
+            if (!SocialEnabled) return;
             LoggingInPending = true;
             socialService.Logout((bool success) =>
             {

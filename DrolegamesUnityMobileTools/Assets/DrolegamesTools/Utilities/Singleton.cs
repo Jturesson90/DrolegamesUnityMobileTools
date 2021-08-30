@@ -14,7 +14,7 @@
             if (Current != null)
             {
                 Debug.LogWarning("Destroying Multiple Singletons of same Type " + gameObject.name);
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
             }
             else
             {

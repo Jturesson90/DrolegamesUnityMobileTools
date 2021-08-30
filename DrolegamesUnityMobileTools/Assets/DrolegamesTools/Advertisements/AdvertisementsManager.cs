@@ -4,134 +4,98 @@
     using UnityEngine;
     using UnityEngine.Advertisements;
     using Drolegames.Utils;
+    using System.Collections.Generic;
 
-    public class AdvertisementsManager : Singleton<AdvertisementsManager>, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
+    public class AdvertisementsManager : Singleton<AdvertisementsManager>, IAdvertisementsManager
     {
-        public bool testMode = false;
-        public bool enablePerPlacementLoad = false;
-        public string iOSGameId = string.Empty;
-        public string androidGameId = string.Empty;
-        public string mockGameId = string.Empty;
-        public string rewardVideoID = string.Empty;
+        [SerializeField] AdvertisementInitializerSO initializer;
+        [SerializeField] BannerAdSO bannerAd;
+        [SerializeField] InterstitialAdSO interstitialAd;
+        [SerializeField] RewardedAdSO rewardedAd;
 
-        private string gameId = string.Empty;
-        private bool _adsIsReady = false;
+        public static event Action<RewardFinished> OnRewardVideoFinished;
 
-        public bool AdsIsReady
+        private List<AdSO> allAds = new List<AdSO>();
+
+        protected override void Awake()
         {
-            get => _adsIsReady;
-            set
+            base.Awake();
+            allAds = new List<AdSO>();
+            if (bannerAd)
+                allAds.Add(bannerAd);
+            if (interstitialAd)
+                allAds.Add(interstitialAd);
+            if (rewardedAd)
+                allAds.Add(rewardedAd);
+
+            if (!initializer)
             {
-                if (_adsIsReady != value)
+                Debug.LogError("Missing AdvertisementInitializer in AdvertisementsManager");
+                return;
+            }
+
+            initializer.Initialize((bool success) =>
+            {
+                if (success)
                 {
-                    _adsIsReady = value;
-                    OnAdsIsReadyChanged?.Invoke(this, value);
+                    allAds.ForEach(a => a.Load((bool loadSuccess) => { }));
                 }
-            }
-        }
-        public static event EventHandler<bool> OnAdsIsReadyChanged;
-        public static event EventHandler<AdsFinishedEventArgs> OnRewardVideoSuccess;
-
-        private string currentId;
-        private void Start()
-        {
-#if UNITY_IOS
-            gameId = iOSGameId;
-#elif UNITY_ANDROID
-            gameId = androidGameId;
-#else
-            gameId = mockGameId;
-#endif
-            Initialize();
-        }
-        public void Initialize()
-        {
-            Advertisement.Initialize(gameId, testMode, enablePerPlacementLoad, this);
+            });
         }
 
-        public bool GetIsReady() => Advertisement.IsReady(rewardVideoID);
-        public bool ShowRewardVideo(string id)
+        public bool ShowBanner()
         {
-            if (!GetIsReady()) return false;
-            Advertisement.Show(rewardVideoID, this);
-            currentId = id;
-            return true;
-        }
-        private void LoadRewardVideo()
-        {
-            Advertisement.Load(rewardVideoID, this);
-
-        }
-        #region IUnityAdsInitializationListener
-        public void OnInitializationComplete()
-        {
-            Debug.Log("Unity Ads initialization complete.");
-            LoadRewardVideo();
-        }
-        public void OnInitializationFailed(UnityAdsInitializationError error, string message)
-        {
-            Debug.LogWarning($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
-        }
-        #endregion
-
-        #region IUnityAdsLoadListener
-        public void OnUnityAdsAdLoaded(string placementId)
-        {
-            if (placementId.Equals(rewardVideoID))
+            if (bannerAd && bannerAd.IsLoadedAndReady())
             {
-                AdsIsReady = true;
+                bannerAd.Show();
+                return true;
             }
+            return false;
         }
 
-        public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+        public bool HideBanner()
         {
-            Debug.LogWarning($"Unity Ads Load Failed: {error.ToString()} - {message}");
-        }
-        #endregion
-
-        #region IUnityAdsShowListener
-        public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
-        {
-            Debug.LogWarning($"Unity Ads Show Failed: {error.ToString()} - {message}");
-        }
-
-        public void OnUnityAdsShowStart(string placementId)
-        {
-            if (placementId.Equals(rewardVideoID))
+            if (bannerAd && bannerAd.IsLoadedAndReady())
             {
-                AdsIsReady = false;
+                bannerAd.Hide();
+                return true;
             }
+            return false;
         }
 
-        public void OnUnityAdsShowClick(string placementId)
+        public bool ShowInterstitial()
         {
-            if (placementId.Equals(rewardVideoID))
+            if (interstitialAd && interstitialAd.IsLoadedAndReady())
             {
-                AdsIsReady = false;
+                interstitialAd.Show();
+                return true;
             }
+            return false;
         }
 
-        public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
+        public bool ShowRewardedVideo(string referenceId, Action<RewardFinished> callback)
         {
-            if (rewardVideoID.Equals(placementId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
+            if (rewardedAd && rewardedAd.IsLoadedAndReady())
             {
-                OnRewardVideoSuccess?.Invoke(this, new AdsFinishedEventArgs((AdvertisementResult)showCompletionState, currentId));
+                rewardedAd.Show(referenceId, (RewardFinished rewardAdFinish) =>
+                {
+                    OnRewardVideoFinished?.Invoke(rewardAdFinish);
+                    callback?.Invoke(rewardAdFinish);
+                });
+                return true;
             }
-            LoadRewardVideo();
+            return false;
         }
-        #endregion
-
-
-
     }
-    public class AdsFinishedEventArgs : EventArgs
+
+    public struct RewardFinished
     {
         public AdvertisementResult showResult;
-        public string id;
-        public AdsFinishedEventArgs(AdvertisementResult showResult, string id)
+        public string referenceId;
+        public RewardFinished(AdvertisementResult showResult, string referenceId)
         {
             this.showResult = showResult;
-            this.id = id;
+            this.referenceId = referenceId;
         }
     }
     public enum AdvertisementResult

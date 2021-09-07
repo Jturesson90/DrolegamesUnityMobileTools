@@ -11,7 +11,6 @@ namespace Drolegames.SocialService
     {
         private PendingAchievements _pendingAchievements;
         private Dictionary<string, IAchievement> unlockedAchievements = new Dictionary<string, IAchievement>();
-        private Dictionary<string, IAchievement> allAchievements = new Dictionary<string, IAchievement>();
 
         private readonly ISocialAchievements social;
         private readonly ISession session;
@@ -67,11 +66,6 @@ namespace Drolegames.SocialService
         public void Unlock(string id, Action<bool> callback = null)
         {
             if (!social.AchievementsEnabled) return;
-
-#if DEBUG_ACHIEVEMENTS
-            Debug.Log($"UnlockAchievement {id}");
-#endif
-            if (!allAchievements.ContainsKey(id) || unlockedAchievements.ContainsKey(id)) return;
             var s = new DroleAchievement(id);
             if (!session.IsLoggedIn)
             {
@@ -81,30 +75,17 @@ namespace Drolegames.SocialService
 
             social.UnlockAchievement(id, (bool success) =>
             {
-#if DEBUG_ACHIEVEMENTS
-                Debug.Log($"UnlockAchievement success ? {success}");
-#endif
-                callback?.Invoke(success);
                 if (success)
-                {
-                    unlockedAchievements.Add(id, allAchievements[id]);
                     RemovePendingAchievement(s);
-                }
                 else
-                {
                     AddPendingAchievement(s);
-                }
 
+                callback?.Invoke(success);
             });
         }
         public void Increment(string id, double steps, double stepsRatio, Action<bool> callback = null)
         {
             if (!social.AchievementsEnabled) return;
-#if DEBUG_ACHIEVEMENTS
-            Debug.Log($"IncrementAchievement {id} {steps} SocialManager.IsInitialized: {SocialManager.IsInitialized } SocialManager.Current.IsLoggedIn{SocialManager.Current.IsLoggedIn}");
-#endif
-            if (!allAchievements.ContainsKey(id) || unlockedAchievements.ContainsKey(id)) return;
-
             var s = new DroleAchievement(id, steps, stepsRatio);
             if (!session.IsLoggedIn)
             {
@@ -113,19 +94,12 @@ namespace Drolegames.SocialService
             }
             social.IncrementAchievement(id, s.steps, s.stepsToComplete, (bool success) =>
              {
-#if DEBUG_ACHIEVEMENTS
-                    Debug.Log($"IncrementAchievement success ? {success}");
-#endif
-                 callback?.Invoke(success);
                  if (success)
-                 {
                      RemovePendingAchievement(s);
-                 }
                  else
-                 {
                      AddPendingAchievement(s);
-                 }
 
+                 callback?.Invoke(success);
              });
 
         }
@@ -152,21 +126,14 @@ namespace Drolegames.SocialService
 
         private void LoadAchievements()
         {
-#if DEBUG_ACHIEVEMENTS
-            Debug.Log($"LoadAchievements");
-#endif
             unlockedAchievements.Clear();
-            allAchievements.Clear();
             social.LoadAchievements(achievements =>
             {
-                allAchievements = achievements.ToDictionary(a => a.id);
                 unlockedAchievements = achievements
                 .Where(a => a.completed)
                 .ToDictionary(a => a.id);
-#if DEBUG_ACHIEVEMENTS
-                Debug.Log($"LoadAchievements allAchievements count {allAchievements.Count}");
-                Debug.Log($"LoadAchievements unlockedAchievements count {unlockedAchievements.Count}");
-#endif
+
+                // Remove all old pending achievements that the appstore says is deleted
                 for (int i = _pendingAchievements.pending.Count - 1; i >= 0; i--)
                 {
                     if (unlockedAchievements.ContainsKey(_pendingAchievements.pending[i].id))
@@ -174,7 +141,6 @@ namespace Drolegames.SocialService
                         _pendingAchievements.pending.RemoveAt(i);
                     }
                 }
-
                 FlushAchievements();
             });
             SaveToDisk();

@@ -1,13 +1,14 @@
-﻿namespace Drolegames.SocialService
+﻿#if UNITY_IOS
+namespace Drolegames.SocialService
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
     using UnityEngine.SocialPlatforms;
-#if UNITY_IOS || UNITY_EDITOR
+
     using UnityEngine.SocialPlatforms.GameCenter;
-#endif
+
 
     public class IOSSocial : ISocialService
     {
@@ -99,13 +100,17 @@
 
         public void IncrementAchievement(string achievementId, double steps, double stepsToComplete, Action<bool> callback)
         {
+            double stepsAspect = 100.0 / stepsToComplete;
+            double percentCompleted = steps * stepsAspect;
             if (achievementById.ContainsKey(achievementId))
             {
                 var achievement = achievementById[achievementId];
-                achievement.percentCompleted += (steps / stepsToComplete);
-                Social.Active.ReportProgress(achievementId, achievement.percentCompleted, callback);
+                achievement.percentCompleted += percentCompleted;
+                percentCompleted = achievement.percentCompleted;
             }
+            Social.ReportProgress(achievementId, percentCompleted, callback);
         }
+
         public void UnlockAchievement(string achievementId, Action<bool> callback)
         {
             Social.Active.ReportProgress(achievementId, 100d, callback);
@@ -123,6 +128,8 @@
 
         public void ReportLeaderboardScore(long score, string leaderboardId, Action<bool> callback)
         {
+            // Appstore wants a hundreth of a second, while we calculate in thousandth. 
+            score /= 10;
             Social.ReportScore(score, leaderboardId, callback);
         }
 
@@ -138,3 +145,4 @@
         }
     }
 }
+#endif

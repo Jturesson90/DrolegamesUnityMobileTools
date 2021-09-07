@@ -18,7 +18,7 @@ namespace Drolegames.Advertisements
         {
             this.callback = callback;
 #if UNITY_IOS
-            gameId = iOSGameId;
+            gameId = m_iOSGameId;
 #else
             gameId = m_AndroidGameId;
 #endif

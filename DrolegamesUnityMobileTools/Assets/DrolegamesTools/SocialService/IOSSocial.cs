@@ -16,9 +16,9 @@ namespace Drolegames.SocialService
 
         public bool UserCanSign => false;
 
-        public bool IsLoggedIn => Social.Active.localUser.authenticated;
+        public bool IsLoggedIn => Social.localUser.authenticated;
 
-        public string Name => Social.Active.localUser.userName;
+        public string Name => Social.localUser.userName;
 
         public string StoreName { get; private set; }
         private readonly string greeting;
@@ -32,7 +32,7 @@ namespace Drolegames.SocialService
 
         public bool LeaderboardsEnabled { get; private set; }
 
-        public string LocalUserId => Social.Active.localUser.id;
+        public string LocalUserId => Social.localUser.id;
 
         public IOSSocial(SocialIOSSettingsSO settings)
         {
@@ -43,28 +43,29 @@ namespace Drolegames.SocialService
             StoreName = settings.storeName;
         }
 
+        Dictionary<string, IAchievement> achievementById;
         public void Initialize()
         {
-#if UNITY_IOS || UNITY_EDITOR
             GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
-#endif
+            achievementById = new Dictionary<string, IAchievement>();
         }
-        Dictionary<string, IAchievement> achievementById;
+
 
         public event Action<bool> IsLoggedInChanged;
 
         public void LoadAchievements(Action<IAchievement[]> callback)
         {
-            Social.Active.LoadAchievements(a =>
+            // Loads all known achievements. Not everyone
+            Social.LoadAchievements(a =>
             {
                 achievementById = a.ToDictionary(b => b.id);
-                callback(a);
+                callback?.Invoke(a);
             });
         }
 
         public void LoadFromCloud(Action<bool> callback)
         {
-            callback(false);
+            callback?.Invoke(false);
         }
 
         public void Login(Action<bool> callback)
@@ -74,7 +75,7 @@ namespace Drolegames.SocialService
                 callback?.Invoke(false);
                 return;
             }
-            Social.Active.localUser.Authenticate((bool success) =>
+            Social.localUser.Authenticate((bool success) =>
             {
                 callback?.Invoke(success);
                 IsLoggedInChanged?.Invoke(IsLoggedIn);
@@ -84,36 +85,43 @@ namespace Drolegames.SocialService
         public void Logout(Action<bool> callback)
         {
             /* Can't logout*/
-            callback(false);
+            callback?.Invoke(false);
         }
 
         public void SaveGame(byte[] data, TimeSpan playedTime, Action<bool> callback)
         {
             // Not implemented
-            callback(false);
+            callback?.Invoke(false);
         }
 
         public void ShowAchievementsUI()
         {
-            Social.Active.ShowAchievementsUI();
+            Social.ShowAchievementsUI();
         }
 
         public void IncrementAchievement(string achievementId, double steps, double stepsToComplete, Action<bool> callback)
         {
             double stepsAspect = 100.0 / stepsToComplete;
             double percentCompleted = steps * stepsAspect;
+
+            IAchievement achievement;
             if (achievementById.ContainsKey(achievementId))
             {
-                var achievement = achievementById[achievementId];
-                achievement.percentCompleted += percentCompleted;
-                percentCompleted = achievement.percentCompleted;
+                achievement = achievementById[achievementId];
             }
-            Social.ReportProgress(achievementId, percentCompleted, callback);
+            else
+            {
+                achievement = Social.CreateAchievement();
+                achievement.id = achievementId;
+                achievementById.Add(achievement.id, achievement);
+            }
+            achievement.percentCompleted += percentCompleted;
+            achievement.ReportProgress(callback);
         }
 
         public void UnlockAchievement(string achievementId, Action<bool> callback)
         {
-            Social.Active.ReportProgress(achievementId, 100d, callback);
+            Social.ReportProgress(achievementId, 100d, callback);
         }
 
         public void ShowLeaderboardUI()

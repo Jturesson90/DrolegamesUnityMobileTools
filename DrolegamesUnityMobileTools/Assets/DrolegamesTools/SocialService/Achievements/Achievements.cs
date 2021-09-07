@@ -10,7 +10,7 @@ namespace Drolegames.SocialService
     public class Achievements : IAchievements
     {
         private PendingAchievements _pendingAchievements;
-        private Dictionary<string, IAchievement> unlockedAchievements = new Dictionary<string, IAchievement>();
+        private Dictionary<string, IAchievement> unlockedAchievements;
 
         private readonly ISocialAchievements social;
         private readonly ISession session;
@@ -19,6 +19,7 @@ namespace Drolegames.SocialService
             this.social = social;
             this.session = session;
             _pendingAchievements = new PendingAchievements();
+            unlockedAchievements = new Dictionary<string, IAchievement>();
         }
 
         private void Session_IsLoggedInChanged(bool isLoggedIn)
@@ -93,28 +94,30 @@ namespace Drolegames.SocialService
                 return;
             }
             social.IncrementAchievement(id, s.steps, s.stepsToComplete, (bool success) =>
-             {
-                 if (success)
-                     RemovePendingAchievement(s);
-                 else
-                     AddPendingAchievement(s);
+            {
+                if (success)
+                    RemovePendingAchievement(s);
+                else
+                    AddPendingAchievement(s);
 
-                 callback?.Invoke(success);
-             });
+                callback?.Invoke(success);
+            });
 
         }
 
         private void RemovePendingAchievement(DroleAchievement pendingAchievement)
         {
-            int index = _pendingAchievements.pending.FindIndex(c => c.id.Equals(pendingAchievement.id) && c.hasIncrement == pendingAchievement.hasIncrement && c.steps.Equals(pendingAchievement.steps));
-            if (index >= 0)
-                _pendingAchievements.pending.RemoveAt(index);
+            if (_pendingAchievements != null)
+            {
+                _pendingAchievements.RemoveAchievement(pendingAchievement);
+            }
         }
+
         private void AddPendingAchievement(DroleAchievement pendingAchievement)
         {
-            if (!_pendingAchievements.pending.Any(c => c.id.Equals(pendingAchievement.id) && c.hasIncrement == pendingAchievement.hasIncrement && c.steps.Equals(pendingAchievement.steps)))
+            if (_pendingAchievements != null)
             {
-                _pendingAchievements.pending.Add(pendingAchievement);
+                _pendingAchievements.AddAchievement(pendingAchievement);
             }
         }
 
@@ -129,18 +132,17 @@ namespace Drolegames.SocialService
             unlockedAchievements.Clear();
             social.LoadAchievements(achievements =>
             {
-                unlockedAchievements = achievements
-                .Where(a => a.completed)
-                .ToDictionary(a => a.id);
-
-                // Remove all old pending achievements that the appstore says is deleted
-                for (int i = _pendingAchievements.pending.Count - 1; i >= 0; i--)
+                unlockedAchievements = new Dictionary<string, IAchievement>();
+                foreach (var achievement in achievements)
                 {
-                    if (unlockedAchievements.ContainsKey(_pendingAchievements.pending[i].id))
+                    if (achievement.completed)
                     {
-                        _pendingAchievements.pending.RemoveAt(i);
+                        unlockedAchievements.Add(achievement.id, achievement);
                     }
                 }
+                if (_pendingAchievements != null)
+                    _pendingAchievements.RemoveAllWithId(unlockedAchievements.Keys.ToArray());
+
                 FlushAchievements();
             });
             SaveToDisk();
@@ -175,6 +177,27 @@ namespace Drolegames.SocialService
         public PendingAchievements()
         {
             pending = new List<DroleAchievement>();
+        }
+
+        public void RemoveAllWithId(string[] ids)
+        {
+            pending.RemoveAll((item) => ids.Contains(item.id));
+        }
+
+        internal void RemoveAchievement(DroleAchievement pendingAchievement)
+        {
+            if (!pending.Contains(pendingAchievement))
+            {
+                pending.Remove(pendingAchievement);
+            }
+        }
+
+        internal void AddAchievement(DroleAchievement pendingAchievement)
+        {
+            if (!pending.Contains(pendingAchievement))
+            {
+                pending.Add(pendingAchievement);
+            }
         }
     }
 }
